@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `ats2021foxtrot` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `ats2021foxtrot`;
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
--- Host: localhost    Database: ats
+-- Host: localhost    Database: ats2021foxtrot
 -- ------------------------------------------------------
 -- Server version	5.7.32-log
 
@@ -54,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-08 15:49:18
+-- Dump completed on 2021-03-09 10:52:30
