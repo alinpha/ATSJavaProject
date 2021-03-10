@@ -4,13 +4,30 @@
 	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	 version="3.1">
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
+    <servlet>
+    <servlet-name>EmployeeController</servlet-name>
+    <servlet-class>controllers.EmployeeController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>EmployeeController</servlet-name>
+    <url-pattern>/employees</url-pattern>
+    </servlet-mapping>
     
+    <servlet-mapping>
+        <servlet-name>EmployeeController</servlet-name>
+        <url-pattern>/employee/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+    <servlet-name>HomeView</servlet-name>
+    <jsp-file>/index.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>HomeView</servlet-name>
+    <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
-        <welcome-file>/index.jsp</welcome-file>
+    <welcome-file>home</welcome-file>
     </welcome-file-list>
 </web-app>

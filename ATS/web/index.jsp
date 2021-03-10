@@ -15,7 +15,7 @@
         <%@include file="WEB-INF/jspf/navigation.jspf" %>
         <h2>ATS Application Home Page</h2>
         <p>
-            Team Foxtrot
+            Decide what to show on the main page
         </p>
     </body>
 </html>
