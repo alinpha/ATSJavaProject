@@ -17,6 +17,19 @@
         <servlet-name>EmployeeController</servlet-name>
         <url-pattern>/employee/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet-name>TaskController</servlet-name>
+    <servlet-class>controllers.TaskController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>TaskController</servlet-name>
+    <url-pattern>/tasks</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>TaskController</servlet-name>
+        <url-pattern>/task/*</url-pattern>
+    </servlet-mapping>
 
     <servlet>
     <servlet-name>HomeView</servlet-name>
