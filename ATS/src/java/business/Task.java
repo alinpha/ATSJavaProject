@@ -45,11 +45,11 @@ public class Task implements Serializable{
         return this;
     }
     
-    public int saveBook(){
+    public int saveTask(){
         return 1;
     }
     
-    public int deleteBook(int id){
+    public int deleteTask(int id){
         return 1;
     }
     
