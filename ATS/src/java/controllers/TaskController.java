@@ -57,7 +57,7 @@ public class TaskController extends CommonController {
                     request.setAttribute("vm", vm);
                 } else {
                     //No book of that id
-                    request.setAttribute("error", new ErrorViewModel(String.format("Book ID: %s not found", id)));
+                    request.setAttribute("error", new ErrorViewModel(String.format("Task ID: %s not found", id)));
                 }
             } else{    
                 request.setAttribute("vm", new TaskViewModel());
