@@ -10,44 +10,41 @@ import java.util.Date;
 /**
  *
  * @author Aline Vetrov
- * @description The Employee Model Interface. Defines properties of the Employee. Validations for the properties will
- * be implemented in the class that implements this interface
  */
 public interface IEmployee extends IBase {
-
     int getId();
 
     void setId(int id);
 
     String getFirstName();
 
-    void setFirstName(String firstName);
-
+    void setFirstName(String fname);
+    
     String getLastName();
 
-    void setLastName(String lastName);
+    void setLastName(String lname);
+    
+    String getSin();
 
-    String getSIN();
-
-    void setSIN(String sin);
+    void setSin(String sin);
 
     double getHourlyRate();
 
-    void setHourlyRate(double hourlyRate);
+    void setHourlyRate(double rate);
 
     boolean isDeleted();
-    
-    void setIsDeleted(boolean isDeleted);
+
+    void setIsDeleted(boolean del);
 
     Date getCreatedAt();
 
-    void setCreatedAt(Date createdAt);
+    void setCreatedAt(Date date);
     
     Date getUpdatedAt();
 
-    void setUpdatedAt(Date updatedAt);
+    void setUpdatedAt(Date date);
     
     Date getDeletedAt();
 
-    void setDeletedAt(Date deletedAt);
+    void setDeletedAt(Date date);
 }

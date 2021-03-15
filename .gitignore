@@ -25,3 +25,8 @@ hs_err_pid*
 /ATS/dist/
 /ATS/build/
 /ATSWeb/nbproject/private/
+/com.nbcc.dataaccess/dist/
+/com.nbcc.dataaccess/build/
+/com.foxtrot.atssystem/build/
+/ATSWeb/build/
+/com.foxtrot.atssystem/dist/

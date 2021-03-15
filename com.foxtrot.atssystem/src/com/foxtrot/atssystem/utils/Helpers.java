@@ -3,42 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nbcc.invoicesystem.utils;
-
-import java.io.InputStream;
-import java.util.Properties;
+package com.foxtrot.atssystem.utils;
 
 /**
  *
- * @author Chris.Cusack
+ * @author Aline Vetrov
  */
-public abstract class Helpers {
-    public static Properties getProperties() throws Exception {
-        
-        Properties props = new Properties();
-        InputStream in = null;
-
-        try {
-            //Get the path to my db.properties file
-
-            //Class Loader for loading the durrenct binary lcoation
-            ClassLoader classLoader = Helpers.class.getClassLoader();
-            in = classLoader.getResourceAsStream("com/properties/db.properties");
-
-            //Load the stream into our props object
-            if (in != null) {
-                props.load(in);
-                in.close();
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            throw ex;
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-        }
-
-        return props;
-    }
+public class Helpers {
+    
 }

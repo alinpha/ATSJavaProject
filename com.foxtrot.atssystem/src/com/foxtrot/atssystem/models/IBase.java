@@ -15,3 +15,4 @@ public interface IBase {
     ArrayList<IError> getErrors();
     void addError(IError error);
 }
+

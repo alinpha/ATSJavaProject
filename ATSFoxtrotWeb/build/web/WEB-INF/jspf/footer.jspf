@@ -1,0 +1,8 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8" %>
+<br>
+<footer class="border-top">
+    <jsp:useBean id="now" class="java.util.Date" />
+    <h1 class="text-center display-4 grey">ATS Foxtrot - ${now}</h1>
+</footer>

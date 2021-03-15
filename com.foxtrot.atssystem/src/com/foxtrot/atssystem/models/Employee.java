@@ -12,39 +12,31 @@ import java.util.Date;
  * @author Aline Vetrov
  */
 public class Employee extends Base implements IEmployee {
+    int id;
+    String firstName;
+    String lastName;
+    String sin;
+    double hourlyRate;
+    boolean isDeleted;
+    Date createdAt;
+    Date updatedAt;
+    Date deletedAt;
     
-     private int id;
-     private String firstName;
-     private String lastName;
-     private String sin;
-     private double hourlyRate;
-     private boolean isDeleted;
-     private Date createdAt;
-     private Date updatedAt;
-     private Date deletedAt;
-     
-     public Employee() {
-         
-     }
-     
-     public Employee(String fname, String lname, String sin, double hourlyRate, 
-             boolean isDeleted, Date createdAt, Date updatedAt, Date deletedAt) {
-         
-     }
-     
-     
-     
-
-//    public void setInvoiceDescription(String description) {
-//        if(invoiceDescription == null) {
-//            this.addError(ErrorFactory.createInstance(1, "Invoice description is required"));
-//        } else if(invoiceDescription.length() < 5) {
-//            this.addError(ErrorFactory.createInstance(2, "Invoice description must be 5 chars or more"));
-//        } else {
-//            this.invoiceDescription = description;
-//        }
-//        
-//    }
+    public Employee() {}
+    
+    public Employee(String fname, String lname, String sin,
+            double hourlyRate, boolean isDeleted, Date createdAt, Date updatedAt, Date deletedAt) {
+        setFirstName(fname);
+        setLastName(lname);
+        setSin(sin);
+        setHourlyRate(hourlyRate);
+        setIsDeleted(isDeleted);
+        setCreatedAt(createdAt);
+        setUpdatedAt(updatedAt);
+        setDeletedAt(deletedAt);
+    }
+    
+    //todo verify setters , add errors
 
     public int getId() {
         return id;
@@ -70,11 +62,11 @@ public class Employee extends Base implements IEmployee {
         this.lastName = lastName;
     }
 
-    public String getSIN() {
+    public String getSin() {
         return sin;
     }
 
-    public void setSIN(String sin) {
+    public void setSin(String sin) {
         this.sin = sin;
     }
 
@@ -106,16 +98,17 @@ public class Employee extends Base implements IEmployee {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdatedAt(Date updateddAt) {
+        this.updatedAt = updateddAt;
     }
 
     public Date getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
-        this.deletedAt = deletedAt;
+    public void setDeletedAt(Date deleteddAt) {
+        this.deletedAt = deleteddAt;
     }
-
+    
+    
 }

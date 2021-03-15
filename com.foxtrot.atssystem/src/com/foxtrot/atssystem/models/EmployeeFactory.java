@@ -17,9 +17,9 @@ public abstract class EmployeeFactory {
         return new Employee();
     }
     
-    public static IEmployee createInstance(String fname, String lname, String sin, 
-            double rate, boolean isDeleted, Date createdAt, Date updatedAt, Date deletedAt) {
-        return new Employee(fname,lname,sin,rate,isDeleted,createdAt,updatedAt,deletedAt);
+    public static IEmployee createInstance(String fname, String lname, String sin,
+            double rate, boolean del, Date c, Date u, Date d) {
+        return new Employee(fname,lname,sin,rate,del,c,u,d);
     }
     
     public static ArrayList<IEmployee> createListInstance() {
