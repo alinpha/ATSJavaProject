@@ -29,6 +29,11 @@ CREATE TABLE `tasks` (
   `createdAt` DATETIME NOT NULL,
   `updatedAt` DATETIME NULL);
   
+INSERT INTO tasks (name,description,duration,createdAt) VALUES
+('Install SQL Server','Install SQL Server on machines for department anc on floor 7.',2,'2021-01-01'),
+('Replace HDD','Replace hdd for ssd in station 223',1,'2021-02-03'),
+('Configure Switches','Configure new switches on floor 5 for finance department.',2,'2020-06-23');
+  
   CREATE TABLE `employeetasks` (
   `employeeId` INT NOT NULL,
   `taskId` INT NOT NULL,
@@ -42,6 +47,45 @@ CREATE TABLE `tasks` (
   CONSTRAINT `fk_tsk_id`
     FOREIGN KEY (`taskId`)
     REFERENCES `tasks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `teams` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` NVARCHAR(50) NOT NULL,
+  `isOnCall` tinyint(4) NOT NULL,
+  `isDeleted` tinyint(4) NOT NULL,
+  `createdAt` DATETIME NOT NULL,
+  `updatedAt` DATETIME NULL,
+  `deletedAt` DATETIME NULL);
+  
+CREATE TABLE `teammembers` (
+  `employeeId` INT NOT NULL,
+  `teamId` INT NOT NULL,
+  INDEX `fk_emp2_id_idx` (`employeeId` ASC),
+  INDEX `fk_tem2_id_idx` (`teamId` ASC),
+  CONSTRAINT `fk_emp2_id`
+    FOREIGN KEY (`employeeId`)
+    REFERENCES `employees` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tem2_id`
+    FOREIGN KEY (`teamId`)
+    REFERENCES `teams` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `jobs` (
+  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `teamId` INT NOT NULL,
+  `description` NVARCHAR(255) NOT NULL,
+  `clientName` NVARCHAR(25) NOT NULL,
+  `start` DATETIME NOT NULL,
+  `end` DATETIME NOT NULL,
+  INDEX `fk_tem3_id_idx` (`teamId` ASC),
+  CONSTRAINT `fk_tem3_id`
+    FOREIGN KEY (`teamId`)
+    REFERENCES `teams` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
