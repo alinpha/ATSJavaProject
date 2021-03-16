@@ -5,10 +5,18 @@
  */
 package com.foxtrot.atssystem.models;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Aline Vetrov
  */
-public class TaskFactory {
+public abstract class TaskFactory {
+    public static ITask createInstance() {
+        return new Task();
+    }
     
+    public static ArrayList<ITask> createListInstance() {
+        return new ArrayList();
+    }
 }

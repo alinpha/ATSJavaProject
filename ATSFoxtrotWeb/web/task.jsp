@@ -44,7 +44,7 @@
                             </tr>
                             <tr>
                                 <td>Updated At:</td>
-                                <td><input class="form-control" type="date" name="taskUpdatedAt" value="${ task.updateddAt }" /></td>
+                                <td><input class="form-control" type="date" name="taskUpdatedAt" value="${ task.updatedAt }" /></td>
                             </tr>
                         </table>
 

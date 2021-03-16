@@ -6,6 +6,9 @@
 package com.foxtrot.ats.controllers;
 
 import com.foxtrot.ats.models.ErrorViewModel;
+import com.foxtrot.atssystem.business.EmployeeServiceFactory;
+import com.foxtrot.atssystem.business.IEmployeeService;
+import com.foxtrot.atssystem.models.IEmployee;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,18 +31,26 @@ public class EmployeeController extends CommonController {
 
         String pathInfo = request.getPathInfo();
         //Service Instance
+        IEmployeeService service = EmployeeServiceFactory.createInstance();
 
         if (pathInfo != null) {
             String[] pathParts = pathInfo.split("/");
 
             int id = super.getInteger(pathParts[1]);
             //Get the employee in a variable
+            IEmployee employee = service.getEmployee(id);
 
             //Set attribute as employee or error
+            if(employee != null) {
+                request.setAttribute("employee", employee);
+            } else {
+                request.setAttribute("error", new ErrorViewModel(String.format("Employee id: %s not found", id)));
+            }
 
             super.setView(request, EMPS_MAINT_VIEW);
         } else {
             //Set attribute as list of the employees
+            request.setAttribute("employees", service.getEmployees());
             super.setView(request, EMPS_VIEW);
         }
 

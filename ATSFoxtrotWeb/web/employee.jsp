@@ -43,7 +43,7 @@
                             </tr>
                             <tr>                    
                                 <td>Is Deleted</td>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="empIsDeleted" value="" ${employee.isDeleted ? 'checked' : ''}></td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="empIsDeleted" value="" ${employee.isDeleted() ? 'checked' : ''}></td>
                             </tr>
                             <tr>
                                 <td>Created At:</td>
@@ -51,11 +51,11 @@
                             </tr>
                             <tr>
                                 <td>Updated At:</td>
-                                <td><input class="form-control" type="date" name="empUpdatedAt" value="${ employee.updateddAt }" /></td>
+                                <td><input class="form-control" type="date" name="empUpdatedAt" value="${ employee.updatedAt }" /></td>
                             </tr>
                             <tr>
                                 <td>Deleted At:</td>
-                                <td><input class="form-control" type="date" name="empDeletedAt" value="${ employee.deleteddAt }" /></td>
+                                <td><input class="form-control" type="date" name="empDeletedAt" value="${ employee.deletedAt }" /></td>
                             </tr>
                         </table>
 

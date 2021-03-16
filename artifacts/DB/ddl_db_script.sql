@@ -14,6 +14,12 @@ CREATE TABLE `employees` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime DEFAULT NULL,
   `deletedAt` datetime DEFAULT NULL);
+  
+INSERT INTO employees (firstName,lastName,sin,hourlyRate,isDeleted,createdAt) VALUES
+('Bob','Marley','000000000',50.00,false,'2021-01-01'),
+('Jay','Doe','111111111',20.00,false,'2021-02-03'),
+('Mariah','Carry','222222222',12.00,false,'2020-06-23'),
+('Michael','Jackson','333333333',120.00,false,'2021-03-01');
 
 CREATE TABLE `tasks` (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

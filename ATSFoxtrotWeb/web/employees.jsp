@@ -5,52 +5,40 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <title>Invoicing Application</title>
+        <title>ATS Application</title>
     </head>
     <body>
         <%@include file="WEB-INF/jspf/navigation.jspf" %>
         <main>
-            <h1 class="text-center display-4 grey">Invoices List</h1>
+            <h1 class="text-center display-4 grey">Employees List</h1>
             <section>
-                <c:set var="invoiceCount" value="${ invoices.size()}" />
+                <c:set var="employeesCount" value="${ employees.size()}" />
                 <c:choose>
-                    <c:when test="${ invoiceCount > 0}">
+                    <c:when test="${ employeesCount > 0}">
                         <table class="table table-striped">
                             <tr class="bg-dark text-light">
+                                
                                 <th>
-                                    Id
+                                    First Name
                                 </th>
                                 <th>
-                                    Description
+                                    Last Name
                                 </th>
-                                <th>
-                                    Invoice Subtotal
-                                </th>
-                                <th>
-                                    Invoice Discount
-                                </th>
-                                <th>
-                                    Invoice Total
-                                </th>
-                                <th>
-                                    Invoice Date
-                                </th>
+                                <th></th>
                             </tr>
-                            <c:forEach items="${invoices}"  var="inv">
+                            <c:forEach items="${employees}"  var="emp">
                                 <tr>
-                                    <td><a href="invoice/${ inv.id}">${ inv.id}</a></td>
-                                    <td>${ inv.invoiceDescription }</td>
-                                    <td><fmt:formatNumber value="${inv.subtotal}" type="currency" currencySymbol="$"/></td>
-                                    <td><fmt:formatNumber value="${inv.discountAmount}" type="currency" currencySymbol="$"/></td>
-                                    <td><fmt:formatNumber value="${inv.total}" type="currency" currencySymbol="$"/></td>
-                                    <td>${ inv.invoiceDate}</td>            
+                                    
+                                    <td>${ emp.firstName }</td>
+                                    <td>${ emp.lastName }</td>
+                                    <td><a href="employee/${ emp.id}">Show</a></td>  
                                 </tr>
                             </c:forEach>
 
                         </table>
                     </c:when>
-                    <c:when test="${ invoiceCount == 0}">
-                        <h4 style="text-align:center">No Invoices</h4>
+                    <c:when test="${ employeesCount == 0}">
+                        <h4 style="text-align:center">No Employees</h4>
                     </c:when>
                 </c:choose>
             </section>

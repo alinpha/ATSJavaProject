@@ -5,10 +5,19 @@
  */
 package com.foxtrot.atssystem.business;
 
+import com.foxtrot.atssystem.models.IEmployee;
+import java.util.List;
+
 /**
  *
  * @author Aline Vetrov
  */
-public class IEmployeeService {
+public interface IEmployeeService {
+    boolean isValid(IEmployee employee);
+    IEmployee createEmployee(IEmployee employee);
+    int saveEmployee(IEmployee employee);
+    int deleteEmployee(int id);
     
+    IEmployee getEmployee(int id);
+    List<IEmployee> getEmployees();
 }

@@ -6,48 +6,31 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%@include file="WEB-INF/jspf/header.jspf" %>
-        <title>Invoicing Application</title>
+        <title>ATS Application</title>
     </head>
     <body>
         <%@include file="WEB-INF/jspf/navigation.jspf" %>
         <main>
             <c:choose>
                 <c:when test="${ vm.rowsDeleted != null }">
-                    <h4>Invoice deleted Id: <span class="font-weight-bold">${invoice.id}</span></h4>
+                    <h4>Employee deleted Id: <span class="font-weight-bold">${employee.id}</span></h4>
                     </c:when>
                     <c:otherwise>
                     <table class="table table-striped">
                         <tbody>
                             <tr>
                                 <td style="text-align: right;">Invoice Id</td>
-                                <td>${ invoice.id }</td>
+                                <td>${ employee.id }</td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;">Invoice Description:</td>
-                                <td>${ invoice.invoiceDescription }</td>
+                                <td style="text-align: right;">First Name:</td>
+                                <td>${ invoice.firstName }</td>
                             </tr>
                             <tr>
-                                <td style="text-align: right;">Invoice Date:</td>
-                                <td>${ invoice.invoiceDate}</td>
+                                <td style="text-align: right;">Last Name:</td>
+                                <td>${ employee.lastName}</td>
                             </tr>
-                            <tr>
-                                <td style="text-align: right;">Invoice Subtotal:</td>
-                                <td>
-                                    <fmt:formatNumber value="${invoice.subtotal}" type="currency" currencySymbol="$"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: right;">Invoice Discount:</td>
-                                <td>
-                                    <fmt:formatNumber value="${invoice.discountAmount}" type="currency" currencySymbol="$"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: right;">Invoice Total:</td>
-                                <td>
-                                    <fmt:formatNumber value="${invoice.total}" type="currency" currencySymbol="$"/>
-                                </td>
-                            </tr>
+                            
                     </table>
                 </c:otherwise>
             </c:choose>

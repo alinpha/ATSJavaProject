@@ -5,10 +5,23 @@
  */
 package com.foxtrot.atssystem.models;
 
+import java.util.Date;
+
 /**
  *
  * @author Aline Vetrov
  */
-public class ITask {
-    
+public interface ITask extends IBase {
+    int getId();
+    void setId(int id);
+    String getName();
+    void setName(String name);
+    String getDescription();
+    void setDescription(String description);
+    int getDuration();
+    void setDuration(int duration);
+    Date getCreatedAt();
+    void setCreatedAt(Date createdAt);
+    Date getUpdatedAt();
+    void setUpdatedAt(Date updatedAt);
 }

@@ -6,6 +6,9 @@
 package com.foxtrot.ats.controllers;
 
 import com.foxtrot.ats.models.ErrorViewModel;
+import com.foxtrot.atssystem.business.ITaskService;
+import com.foxtrot.atssystem.business.TaskServiceFactory;
+import com.foxtrot.atssystem.models.ITask;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -28,18 +31,26 @@ public class TaskController extends CommonController {
 
         String pathInfo = request.getPathInfo();
         //Service Instance
+        ITaskService service = TaskServiceFactory.createInstance();
 
         if (pathInfo != null) {
             String[] pathParts = pathInfo.split("/");
 
             int id = super.getInteger(pathParts[1]);
             //Get the task in a variable
+            ITask task = service.getTask(id);
 
             //Set attribute as task or error
+            if(task != null) {
+                request.setAttribute("task", task);
+            } else {
+                request.setAttribute("error", new ErrorViewModel(String.format("Task id: %s not found", id)));
+            }
 
             super.setView(request, TASKS_MAINT_VIEW);
         } else {
             //Set attribute as list of the tasks
+            request.setAttribute("tasks", service.getTasks());
             super.setView(request, TASKS_VIEW);
         }
 

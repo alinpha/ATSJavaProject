@@ -17,5 +17,5 @@ public interface IEmployeeRepository {
     int updateEmployee(IEmployee employee);
     int deleteEmployee(int id);
     List<IEmployee> retrieveEmployees();
-    IEmployee retrieveEmployees(int id);    
+    IEmployee retrieveEmployee(int id);    
 }

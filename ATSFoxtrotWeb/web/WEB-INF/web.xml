@@ -53,7 +53,7 @@
     <!-- Controller Mapping -->
     <servlet>
         <servlet-name>EmployeeController</servlet-name>
-        <servlet-class>com.foxtrot.ats.controllers.EmloyeeController</servlet-class>
+        <servlet-class>com.foxtrot.ats.controllers.EmployeeController</servlet-class>
     </servlet>
     <!-- Mapping for EmployeeController -->
     <!-- Map for retrieving all employees -->

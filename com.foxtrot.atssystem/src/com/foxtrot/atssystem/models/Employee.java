@@ -12,15 +12,15 @@ import java.util.Date;
  * @author Aline Vetrov
  */
 public class Employee extends Base implements IEmployee {
-    int id;
-    String firstName;
-    String lastName;
-    String sin;
-    double hourlyRate;
-    boolean isDeleted;
-    Date createdAt;
-    Date updatedAt;
-    Date deletedAt;
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String sin;
+    private double hourlyRate;
+    private boolean isDeleted;
+    private Date createdAt;
+    private Date updatedAt;
+    private Date deletedAt;
     
     public Employee() {}
     
