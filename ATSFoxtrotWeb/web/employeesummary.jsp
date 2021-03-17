@@ -14,23 +14,31 @@
             <c:choose>
                 <c:when test="${ vm.rowsDeleted != null }">
                     <h4>Employee deleted Id: <span class="font-weight-bold">${employee.id}</span></h4>
-                    </c:when>
-                    <c:otherwise>
+                </c:when>
+                <c:otherwise>
+                <h4 class="text-center">Employee Created</h4>
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <td style="text-align: right;">Invoice Id</td>
+                                <td style="text-align: right;">Employee Id</td>
                                 <td>${ employee.id }</td>
                             </tr>
                             <tr>
                                 <td style="text-align: right;">First Name:</td>
-                                <td>${ invoice.firstName }</td>
+                                <td>${ employee.firstName }</td>
                             </tr>
                             <tr>
                                 <td style="text-align: right;">Last Name:</td>
                                 <td>${ employee.lastName}</td>
                             </tr>
-                            
+                            <tr>
+                                <td style="text-align: right;">SIN:</td>
+                                <td>${ employee.sin}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right;">Hourly Rate:</td>
+                                <td><fmt:formatNumber value="${employee.hourlyRate}" type="currency" currencySymbol="$"/></td>
+                            </tr>
                     </table>
                 </c:otherwise>
             </c:choose>

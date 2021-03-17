@@ -24,6 +24,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
     
     private final String SPROC_SELECT_EMPLOYEES = "CALL selectemployees(null);";
     private final String SPROC_SELECT_EMPLOYEE = "CALL selectemployees(?);";
+    private final String SPROC_INSERT_EMPLOYEE = "CALL insertemployee(?,?,?,?,?);";
     
     private IDAL dataAccess;
     
@@ -33,15 +34,27 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
 
     @Override
     public int insertEmployee(IEmployee employee) {
-        IEmployee emp = EmployeeFactory.createInstance();
+        int id = 0;
+        
         try {
             List<IParameter> params = new ArrayList();
-            //params.add(ParameterFactory.creteInstance(params))
-            dataAccess.executeNonQuery("call insertEmployee", params);
+            params.add(ParameterFactory.creteInstance(employee.getFirstName()));
+            params.add(ParameterFactory.creteInstance(employee.getLastName()));
+            params.add(ParameterFactory.creteInstance(employee.getSin()));
+            params.add(ParameterFactory.creteInstance(employee.getHourlyRate()));
+            
+            params.add(ParameterFactory.creteInstance(id, IParameter.Direction.OUT, java.sql.Types.INTEGER));
+      
+            List<Object> returnedValues = dataAccess.executeNonQuery(SPROC_INSERT_EMPLOYEE, params);
+            
+            if(returnedValues != null) {
+              id = Integer.parseInt(returnedValues.get(0).toString());
+            }
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return 0;
+        return id;
     }
 
     @Override

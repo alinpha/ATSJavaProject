@@ -88,6 +88,25 @@ CREATE TABLE `jobs` (
     REFERENCES `teams` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+   
+CREATE TABLE `jobtasks` (
+  `taskId` INT NOT NULL,
+  `jobId` INT NOT NULL,
+  `operationCost` decimal(13,2) NOT NULL,
+  `operationRevenue` decimal(13,2) NOT NULL,
+  INDEX `fk_tsk4_id_idx` (`taskId` ASC),
+  INDEX `fk_job4_id_idx` (`jobId` ASC),
+  CONSTRAINT `fk_tsk4_id`
+    FOREIGN KEY (`taskId`)
+    REFERENCES `tasks` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_job4_id`
+    FOREIGN KEY (`jobId`)
+    REFERENCES `jobs` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
 
 -- EMPLOYEE STORED PROCEDURES
     

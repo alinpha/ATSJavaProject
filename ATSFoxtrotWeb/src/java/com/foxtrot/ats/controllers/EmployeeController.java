@@ -8,8 +8,10 @@ package com.foxtrot.ats.controllers;
 import com.foxtrot.ats.models.ErrorViewModel;
 import com.foxtrot.atssystem.business.EmployeeServiceFactory;
 import com.foxtrot.atssystem.business.IEmployeeService;
+import com.foxtrot.atssystem.models.EmployeeFactory;
 import com.foxtrot.atssystem.models.IEmployee;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,16 +65,25 @@ public class EmployeeController extends CommonController {
 
         super.setView(request, EMP_SUMMARY_VIEW);
         //Employee service instance
+        IEmployeeService service = EmployeeServiceFactory.createInstance();
 
         try {
             String action = super.getValue(request, "action");
             int id = super.getInteger(request, "hdnEmployeeId");
             
             //Declare Employee variable
+            IEmployee employee = EmployeeFactory.createInstance();
+            employee.setFirstName(super.getValue(request, "empFirstName"));
+            employee.setLastName(super.getValue(request, "empLastName"));
+            employee.setSin(super.getValue(request, "empSin"));
+            employee.setHourlyRate(super.getDouble(request, "empHourlyRate"));
 
             switch (action.toLowerCase()) {
                 case "create":
-                    
+                    IEmployee emp = service.createEmployee(employee);
+                    emp.setCreatedAt(new Date());
+                    emp.setIsDeleted(false);
+                    request.setAttribute("employee", emp);
                     break;
                 case "save":
                     

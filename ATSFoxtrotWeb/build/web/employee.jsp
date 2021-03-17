@@ -41,22 +41,24 @@
                                 <td>Hourly Rate</td>
                                 <td><input class="form-control" type="text" name="empHourlyRate" value='${ employee.hourlyRate != 0 ? employee.hourlyRate : '' }'/></td>
                             </tr>
-                            <tr>                    
-                                <td>Is Deleted</td>
-                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="empIsDeleted" value="" ${employee.isDeleted() ? 'checked' : ''}></td>
-                            </tr>
-                            <tr>
-                                <td>Created At:</td>
-                                <td><input class="form-control" type="date" name="empCreatedAt" value="${ employee.createdAt }" /></td>
-                            </tr>
-                            <tr>
-                                <td>Updated At:</td>
-                                <td><input class="form-control" type="date" name="empUpdatedAt" value="${ employee.updatedAt }" /></td>
-                            </tr>
-                            <tr>
-                                <td>Deleted At:</td>
-                                <td><input class="form-control" type="date" name="empDeletedAt" value="${ employee.deletedAt }" /></td>
-                            </tr>
+                            <c:if test="${employee != null && employee.id!= 0 }">
+                                <tr>                    
+                                    <td>Is Deleted</td>
+                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="empIsDeleted" value="" ${employee.isDeleted() ? 'checked' : ''}></td>
+                                </tr>
+                                <tr>
+                                    <td>Created At:</td>
+                                    <td><input class="form-control" type="date" name="empCreatedAt" value="${ employee.createdAt }" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Updated At:</td>
+                                    <td><input class="form-control" type="date" name="empUpdatedAt" value="${ employee.updatedAt }" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Deleted At:</td>
+                                    <td><input class="form-control" type="date" name="empDeletedAt" value="${ employee.deletedAt }" /></td>
+                                </tr>
+                            </c:if>
                         </table>
 
                         <c:choose>

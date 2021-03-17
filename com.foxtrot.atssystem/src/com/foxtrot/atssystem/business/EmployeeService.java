@@ -29,7 +29,8 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public IEmployee createEmployee(IEmployee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        employee.setId(repo.insertEmployee(employee));
+        return employee;
     }
 
     @Override
