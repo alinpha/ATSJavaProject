@@ -18,7 +18,7 @@ import javax.sql.rowset.CachedRowSet;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public class TaskRepository extends BaseRepository implements ITaskRepository {
     

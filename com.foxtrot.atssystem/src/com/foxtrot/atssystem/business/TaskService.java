@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public class TaskService implements ITaskService {
     

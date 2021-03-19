@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public class TaskController extends CommonController {
 

@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public class Task extends Base implements ITask {
     private int id;

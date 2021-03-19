@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public abstract class TaskFactory {
     public static ITask createInstance() {

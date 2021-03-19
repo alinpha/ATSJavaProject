@@ -7,7 +7,7 @@ package com.foxtrot.atssystem.repository;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public class TaskRepoFactory {
     public static ITaskRepository createInstance() {

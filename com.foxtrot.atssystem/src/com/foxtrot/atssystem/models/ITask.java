@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public interface ITask extends IBase {
     int getId();

@@ -7,7 +7,7 @@ package com.foxtrot.atssystem.business;
 
 /**
  *
- * @author Izes Souto1
+ * @author Izes Souto
  */
 public class TaskServiceFactory {
     public static ITaskService createInstance() {
