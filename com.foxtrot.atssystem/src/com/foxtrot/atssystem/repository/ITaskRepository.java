@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Izes Souto
+ * @author Izes Souto1
  */
 public interface ITaskRepository {
     int insertTask(ITask task);

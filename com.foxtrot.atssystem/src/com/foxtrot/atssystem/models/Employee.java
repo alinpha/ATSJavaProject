@@ -35,8 +35,6 @@ public class Employee extends Base implements IEmployee {
         setUpdatedAt(updatedAt);
         setDeletedAt(deletedAt);
     }
-    
-    //todo verify setters , add errors
 
     public int getId() {
         return id;
@@ -51,7 +49,11 @@ public class Employee extends Base implements IEmployee {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        if(firstName == null || firstName.trim().isEmpty()) {
+            this.addError(ErrorFactory.createInstance(1, "First name is required"));
+        } else {
+            this.firstName = firstName;
+        }
     }
 
     public String getLastName() {
@@ -59,7 +61,11 @@ public class Employee extends Base implements IEmployee {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        if(lastName == null || lastName.trim().isEmpty()) {
+            this.addError(ErrorFactory.createInstance(2, "Last name is required"));
+        } else {
+            this.lastName = lastName;
+        }
     }
 
     public String getSin() {
@@ -67,7 +73,13 @@ public class Employee extends Base implements IEmployee {
     }
 
     public void setSin(String sin) {
-        this.sin = sin;
+        if(sin == null) {
+            this.addError(ErrorFactory.createInstance(3, "SIN is required"));
+        } else if(!sin.matches("[0-9]{9,}")) {
+            this.addError(ErrorFactory.createInstance(3, "SIN must be 9 digits"));
+        }else {
+            this.sin = sin;
+        }
     }
 
     public double getHourlyRate() {
@@ -75,7 +87,11 @@ public class Employee extends Base implements IEmployee {
     }
 
     public void setHourlyRate(double hourlyRate) {
-        this.hourlyRate = hourlyRate;
+        if(hourlyRate <= 0) {
+            this.addError(ErrorFactory.createInstance(4, "Hourly rate is required"));
+        } else {
+            this.hourlyRate = hourlyRate;
+        }
     }
 
     public boolean isDeleted() {

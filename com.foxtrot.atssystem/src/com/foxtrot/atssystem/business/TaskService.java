@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Aline Vetrov
+ * @author Izes Souto1
  */
 public class TaskService implements ITaskService {
     
@@ -29,7 +29,11 @@ public class TaskService implements ITaskService {
 
     @Override
     public ITask createTask(ITask task) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(isValid(task)) {
+            task.setId(repo.insertTask(task));
+        }
+        
+        return task;
     }
 
     @Override

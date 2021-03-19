@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Aline Vetrov
+ * @author Izes Souto1
  */
 public interface ITaskService {
     boolean isValid(ITask task);

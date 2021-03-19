@@ -18,12 +18,13 @@ import javax.sql.rowset.CachedRowSet;
 
 /**
  *
- * @author Izes Souto
+ * @author Izes Souto1
  */
 public class TaskRepository extends BaseRepository implements ITaskRepository {
     
     private final String SPROC_SELECT_TASKS = "CALL selecttasks(null);";
     private final String SPROC_SELECT_TASK = "CALL selecttasks(?);";
+    private final String SPROC_INSERT_TASK = "CALL inserttask(?,?,?,?);";
     
     private IDAL dataAccess;
     
@@ -33,15 +34,23 @@ public class TaskRepository extends BaseRepository implements ITaskRepository {
 
     @Override
     public int insertTask(ITask task) {
-        ITask tsk = TaskFactory.createInstance();
+        int id = 0;
         try {
-            List<IParameter> params = new ArrayList();
-            //params.add(ParameterFactory.creteInstance(params))
-            dataAccess.executeNonQuery("call inserttask", params);
+            List<IParameter> params = ParameterFactory.createListInstance();
+            params.add(ParameterFactory.creteInstance(task.getName()));
+            params.add(ParameterFactory.creteInstance(task.getDescription()));
+            params.add(ParameterFactory.creteInstance(task.getDuration()));
+            params.add(ParameterFactory.creteInstance(id, IParameter.Direction.OUT, java.sql.Types.INTEGER));
+            
+            List<Object> returnedValues = dataAccess.executeNonQuery(SPROC_INSERT_TASK, params);
+            
+            if(returnedValues != null) {
+              id = Integer.parseInt(returnedValues.get(0).toString());
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return 0;
+        return id;
     }
 
     @Override

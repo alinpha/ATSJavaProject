@@ -9,14 +9,16 @@ import com.foxtrot.ats.models.ErrorViewModel;
 import com.foxtrot.atssystem.business.ITaskService;
 import com.foxtrot.atssystem.business.TaskServiceFactory;
 import com.foxtrot.atssystem.models.ITask;
+import com.foxtrot.atssystem.models.TaskFactory;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Izes Souto
+ * @author Izes Souto1
  */
 public class TaskController extends CommonController {
 
@@ -63,16 +65,28 @@ public class TaskController extends CommonController {
 
         super.setView(request, TASK_SUMMARY_VIEW);
         //Task service instance
+        ITaskService service = TaskServiceFactory.createInstance();
 
         try {
             String action = super.getValue(request, "action");
             int id = super.getInteger(request, "hdnTaskId");
             
             //Declare Task variable
+            
+            ITask tsk = TaskFactory.createInstance();
+            tsk.setName(request.getParameter("taskName"));
+            tsk.setDescription(request.getParameter("taskDescription"));
+            tsk.setDuration(getInteger(request, "taskDuration"));
 
             switch (action.toLowerCase()) {
                 case "create":
-                    
+                    service.createTask(tsk);
+                    tsk.setCreatedAt(new Date());
+                    request.setAttribute("task", tsk);
+                    if(!service.isValid(tsk)) {
+                        request.setAttribute("errors", tsk.getErrors());
+                        super.setView(request, TASKS_MAINT_VIEW);
+                    }
                     break;
                 case "save":
                     

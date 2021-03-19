@@ -16,7 +16,7 @@
                 <c:if test="${ errors == null }">
                     <form method="POST" action="save">
                         <table class="table table-striped">  
-                            <c:if test="${task != null && task.id!= 0 }">
+                            <c:if test="${task != null && task.id != 0 }">
                                 <tr>
                                     <td><label>Task Id:</label></td>
                                     <td>
@@ -36,16 +36,19 @@
                             </tr>
                             <tr>                    
                                 <td>Duration</td>
-                                <td><input class="form-control" type="text" name="taskDuration" value='${ task.duration }'/></td>
+                                <td><input class="form-control" type="text" name="taskDuration" value='${ task.duration == 0 ? "" : task.duration }'/></td>
                             </tr>
-                            <tr>
-                                <td>Created At:</td>
-                                <td><input class="form-control" type="date" name="taskCreatedAt" value="${ task.createdAt }" /></td>
-                            </tr>
-                            <tr>
-                                <td>Updated At:</td>
-                                <td><input class="form-control" type="date" name="taskUpdatedAt" value="${ task.updatedAt }" /></td>
-                            </tr>
+                            <c:if test="${task != null && task.id != 0 }">
+                                <tr>
+                                    <td>Created At:</td>
+                                    <td><input class="form-control" type="date" name="taskCreatedAt" value="${ task.createdAt }" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Updated At:</td>
+                                    <td><input class="form-control" type="date" name="taskUpdatedAt" value="${ task.updatedAt }" /></td>
+                                </tr>
+                            </c:if>
+                            
                         </table>
 
                         <c:choose>

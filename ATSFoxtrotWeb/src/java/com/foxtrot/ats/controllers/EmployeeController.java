@@ -84,6 +84,10 @@ public class EmployeeController extends CommonController {
                     emp.setCreatedAt(new Date());
                     emp.setIsDeleted(false);
                     request.setAttribute("employee", emp);
+                    if(!service.isValid(employee)) {
+                        request.setAttribute("errors", emp.getErrors());
+                        super.setView(request, EMPS_MAINT_VIEW);
+                    } 
                     break;
                 case "save":
                     

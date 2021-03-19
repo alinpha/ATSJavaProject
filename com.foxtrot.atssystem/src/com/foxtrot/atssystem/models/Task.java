@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author Aline Vetrov
+ * @author Izes Souto1
  */
 public class Task extends Base implements ITask {
     private int id;
@@ -21,6 +21,14 @@ public class Task extends Base implements ITask {
     
     
     public Task() {}
+    
+    public Task(String name, String desc, int duration, Date createdAt, Date updatedAt) {
+        setName(name);
+        setDescription(desc);
+        setDuration(duration);
+        setCreatedAt(createdAt);
+        setUpdatedAt(updatedAt);
+    }
     
 
     public int getId() {
@@ -36,7 +44,12 @@ public class Task extends Base implements ITask {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (name == null || name.isEmpty()) {
+             this.addError(ErrorFactory.createInstance(1, "Name is required"));
+        } else {
+            this.name = name;
+        }
+        
     }
 
     public String getDescription() {
@@ -44,7 +57,11 @@ public class Task extends Base implements ITask {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description == null || description.isEmpty()) {
+             this.addError(ErrorFactory.createInstance(2, "Description is required"));
+        } else {
+            this.description = description;
+        }
     }
 
     public int getDuration() {
@@ -52,7 +69,13 @@ public class Task extends Base implements ITask {
     }
 
     public void setDuration(int duration) {
-        this.duration = duration;
+        if(duration < 30) {
+            this.addError(ErrorFactory.createInstance(3, "Duration must be at least 30 minutes"));
+        } else if (duration % 15 != 0) {
+            this.addError(ErrorFactory.createInstance(3, "Duration must be 15 minute intervals"));
+        } else {
+            this.duration = duration;
+        }
     }
 
     public Date getCreatedAt() {

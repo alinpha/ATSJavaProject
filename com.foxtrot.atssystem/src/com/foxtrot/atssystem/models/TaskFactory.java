@@ -6,13 +6,18 @@
 package com.foxtrot.atssystem.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
- * @author Aline Vetrov
+ * @author Izes Souto1
  */
 public abstract class TaskFactory {
     public static ITask createInstance() {
+        return new Task();
+    }
+    
+    public static ITask createInstance(String name, String desc, int duration, Date createdAt, Date updatedAt) {
         return new Task();
     }
     

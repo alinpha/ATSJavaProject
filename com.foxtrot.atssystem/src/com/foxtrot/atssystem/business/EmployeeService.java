@@ -29,7 +29,10 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public IEmployee createEmployee(IEmployee employee) {
-        employee.setId(repo.insertEmployee(employee));
+        if(isValid(employee)) {
+            employee.setId(repo.insertEmployee(employee));
+        }
+        
         return employee;
     }
 

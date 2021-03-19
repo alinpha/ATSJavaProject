@@ -16,7 +16,7 @@
                 <c:if test="${ errors == null }">
                     <form method="POST" action="save">
                         <table class="table table-striped">  
-                            <c:if test="${employee != null && employee.id!= 0 }">
+                            <c:if test="${employee != null && employee.id != 0 }">
                                 <tr>
                                     <td><label>Employee Id:</label></td>
                                     <td>
