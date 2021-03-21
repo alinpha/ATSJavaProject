@@ -48,14 +48,14 @@ public class EmployeeController extends CommonController {
             } else {
                 request.setAttribute("error", new ErrorViewModel(String.format("Employee id: %s not found", id)));
             }
-
+            
             super.setView(request, EMPS_MAINT_VIEW);
         } else {
             //Set attribute as list of the employees
             request.setAttribute("employees", service.getEmployees());
             super.setView(request, EMPS_VIEW);
         }
-
+        request.setAttribute("boom", "lol");
         super.getView().forward(request, response);
     }
     

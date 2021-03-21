@@ -48,6 +48,16 @@
         <servlet-name>CreateTaskView</servlet-name>
         <url-pattern>/task/create</url-pattern>
     </servlet-mapping>
+    
+<!--    <servlet>
+        <servlet-name>CreateTeamView</servlet-name>
+        <jsp-file>/team.jsp</jsp-file>
+    </servlet>
+    mapping
+    <servlet-mapping>
+        <servlet-name>CreateTeamView</servlet-name>
+        <url-pattern>/team/create</url-pattern>
+    </servlet-mapping>-->
     <!--End Default Views -->
     
     <!-- Controller Mapping -->
@@ -85,6 +95,24 @@
         <url-pattern>/task/*</url-pattern>
     </servlet-mapping>
     
+    
+    
+    
+    <servlet>
+        <servlet-name>TeamController</servlet-name>
+        <servlet-class>com.foxtrot.ats.controllers.TeamController</servlet-class>
+    </servlet>
+    <!-- Mapping for TeamController -->
+    <!-- Map for retrieving all teams -->
+   <servlet-mapping>
+       <servlet-name>TeamController</servlet-name>
+       <url-pattern>/teams</url-pattern>
+   </servlet-mapping>
+   <!--Map for query string parameter to retrieve team by id-->
+   <servlet-mapping>
+        <servlet-name>TeamController</servlet-name>
+        <url-pattern>/team/*</url-pattern>
+    </servlet-mapping>
    
     
     <welcome-file-list>
