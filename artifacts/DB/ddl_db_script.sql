@@ -30,9 +30,9 @@ CREATE TABLE `tasks` (
   `updatedAt` DATETIME NULL);
   
 INSERT INTO tasks (name,description,duration,createdAt) VALUES
-('Install SQL Server','Install SQL Server on machines for department anc on floor 7.',2,'2021-01-01'),
-('Replace HDD','Replace hdd for ssd in station 223',1,'2021-02-03'),
-('Configure Switches','Configure new switches on floor 5 for finance department.',2,'2020-06-23');
+('Install SQL Server','Install SQL Server on machines for department anc on floor 7.',30,'2021-01-01'),
+('Replace HDD','Replace hdd for ssd in station 223',45,'2021-02-03'),
+('Configure Switches','Configure new switches on floor 5 for finance department.',60,'2020-06-23');
   
   CREATE TABLE `employeetasks` (
   `employeeId` INT NOT NULL,

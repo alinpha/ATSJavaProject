@@ -30,3 +30,5 @@ hs_err_pid*
 /com.foxtrot.atssystem/build/
 /ATSWeb/build/
 /com.foxtrot.atssystem/dist/
+/com.foxtrot.dataaccess/dist/
+/ATSFoxtrotWeb/dist/

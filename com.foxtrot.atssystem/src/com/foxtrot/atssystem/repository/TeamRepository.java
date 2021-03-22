@@ -18,7 +18,7 @@ import javax.sql.rowset.CachedRowSet;
 
 /**
  *
- * @author Aline Vetrov
+ * @author Izes Souto
  */
 public class TeamRepository extends BaseRepository implements ITeamRepository {
     private final String SPROC_SELECT_TEAMS = "CALL selectteams(null);";
