@@ -25,6 +25,8 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
     private final String SPROC_SELECT_TEAM = "CALL selectteams(?);";
     private final String SPROC_INSERT_TEAM = "CALL insertteam(?,?,?);";
     
+    private final String SPROC_SELECT_EMPLOYEE_TEAMS = "CALL select_employee_teams(?);";
+    
     private IDAL dataAccess;
     
     public TeamRepository() {
@@ -69,6 +71,20 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
         List<ITeam> list = TeamFactory.createListInstance();
         try {
             CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_TEAMS, null);
+            list = toListOfTeams(rs);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
+    @Override
+    public List<ITeam> retrieveTeamsForEmployee(int empId) {
+        List<ITeam> list = TeamFactory.createListInstance();
+        try {
+            List<IParameter> params = ParameterFactory.createListInstance();
+            params.add(ParameterFactory.creteInstance(empId));
+            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_TEAMS, params);
             list = toListOfTeams(rs);
         } catch(Exception e) {
             System.out.println(e.getMessage());

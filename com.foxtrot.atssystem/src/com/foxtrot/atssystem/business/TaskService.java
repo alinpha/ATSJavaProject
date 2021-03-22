@@ -56,4 +56,9 @@ public class TaskService implements ITaskService {
         return repo.retrieveTasks();
     }
     
+    @Override
+    public List<ITask> getTasksForEmployee(int id) {
+        return repo.retrieveTasksForEmployee(id);
+    }
+    
 }

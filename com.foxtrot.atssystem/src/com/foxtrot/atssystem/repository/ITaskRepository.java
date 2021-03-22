@@ -17,5 +17,6 @@ public interface ITaskRepository {
     int updateTask(ITask task);
     int deleteTask(int id);
     List<ITask> retrieveTasks();
+    List<ITask> retrieveTasksForEmployee(int id);
     ITask retrieveTask(int id);  
 }

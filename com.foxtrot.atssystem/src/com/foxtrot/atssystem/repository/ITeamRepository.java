@@ -17,5 +17,6 @@ public interface ITeamRepository {
     int updateTeam(ITeam team);
     int deleteTeam(int id);
     List<ITeam> retrieveTeams();
+    List<ITeam> retrieveTeamsForEmployee(int id);
     ITeam retrieveTeam(int id);  
 }

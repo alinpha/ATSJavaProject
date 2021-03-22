@@ -5,6 +5,7 @@
  */
 package com.foxtrot.atssystem.repository;
 
+import com.foxtrot.atssystem.business.TaskServiceFactory;
 import com.foxtrot.dataaccess.DALFactory;
 import com.foxtrot.dataaccess.IDAL;
 import com.foxtrot.atssystem.models.IEmployee;
@@ -25,6 +26,8 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
     private final String SPROC_SELECT_EMPLOYEES = "CALL selectemployees(null);";
     private final String SPROC_SELECT_EMPLOYEE = "CALL selectemployees(?);";
     private final String SPROC_INSERT_EMPLOYEE = "CALL insertemployee(?,?,?,?,?);";
+    
+    
     
     private IDAL dataAccess;
     
@@ -105,6 +108,9 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
      * @throws SQLException 
      */
     private List<IEmployee> toListOfEmployees(CachedRowSet rs) throws SQLException {
+        
+        
+        
         List<IEmployee> list = EmployeeFactory.createListInstance();
         IEmployee emp;
         while(rs.next()) {
@@ -118,9 +124,8 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
             emp.setCreatedAt(rs.getDate("createdAt"));
             emp.setUpdatedAt(rs.getDate("updatedAt"));
             emp.setDeletedAt(rs.getDate("deletedAt"));
-            //inv.setInvoiceDescription(rs.getString("InvoiceDescription"));
-            //inv.setSubtotal(super.getDouble("InvoiceAmount", rs));
-            //inv.setInvoiceDate(super.getDate("InvoiceDate", rs));
+            
+            
             list.add(emp);
         }
         

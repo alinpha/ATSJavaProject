@@ -60,4 +60,9 @@ public class TeamService implements ITeamService {
         return repo.retrieveTeams();
     }
     
+    @Override
+    public List<ITeam> getTeamsForEmployee(int id) {
+        return repo.retrieveTeamsForEmployee(id);
+    }
+    
 }

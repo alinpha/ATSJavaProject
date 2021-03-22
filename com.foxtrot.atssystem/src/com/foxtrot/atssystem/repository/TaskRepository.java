@@ -26,6 +26,8 @@ public class TaskRepository extends BaseRepository implements ITaskRepository {
     private final String SPROC_SELECT_TASK = "CALL selecttasks(?);";
     private final String SPROC_INSERT_TASK = "CALL inserttask(?,?,?,?);";
     
+    private final String SPROC_SELECT_EMPLOYEE_TASKS = "CALL select_employee_tasks(?);";
+    
     private IDAL dataAccess;
     
     public TaskRepository() {
@@ -68,6 +70,20 @@ public class TaskRepository extends BaseRepository implements ITaskRepository {
          List<ITask> list = TaskFactory.createListInstance();
         try {
             CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_TASKS, null);
+            list = toListOfTasks(rs);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
+    @Override
+    public List<ITask> retrieveTasksForEmployee(int empId) {
+         List<ITask> list = TaskFactory.createListInstance();
+        try {
+            List<IParameter> params = ParameterFactory.createListInstance();
+            params.add(ParameterFactory.creteInstance(empId));
+            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_EMPLOYEE_TASKS, params);
             list = toListOfTasks(rs);
         } catch(Exception e) {
             System.out.println(e.getMessage());

@@ -20,4 +20,5 @@ public interface ITeamService {
     
     ITeam getTeam(int id);
     List<ITeam> getTeams();
+    List<ITeam> getTeamsForEmployee(int id);
 }

@@ -6,6 +6,7 @@
 package com.foxtrot.atssystem.models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -21,6 +22,8 @@ public class Employee extends Base implements IEmployee {
     private Date createdAt;
     private Date updatedAt;
     private Date deletedAt;
+    
+    private List<ITask> tasks = TaskFactory.createListInstance();
     
     public Employee() {}
     
@@ -126,5 +129,12 @@ public class Employee extends Base implements IEmployee {
         this.deletedAt = deleteddAt;
     }
     
+    public List<ITask> getTasks() {
+        return tasks;
+    }
+    
+    public void addToTasks(ITask task) {
+        this.tasks.add(task);
+    }
     
 }

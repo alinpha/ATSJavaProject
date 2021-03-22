@@ -8,6 +8,8 @@ package com.foxtrot.ats.controllers;
 import com.foxtrot.ats.models.ErrorViewModel;
 import com.foxtrot.atssystem.business.EmployeeServiceFactory;
 import com.foxtrot.atssystem.business.IEmployeeService;
+import com.foxtrot.atssystem.business.TaskServiceFactory;
+import com.foxtrot.atssystem.business.TeamServiceFactory;
 import com.foxtrot.atssystem.models.EmployeeFactory;
 import com.foxtrot.atssystem.models.IEmployee;
 import java.io.IOException;
@@ -45,6 +47,10 @@ public class EmployeeController extends CommonController {
             //Set attribute as employee or error
             if(employee != null) {
                 request.setAttribute("employee", employee);
+                
+                request.setAttribute("tasks", TaskServiceFactory.createInstance().getTasksForEmployee(id));
+                request.setAttribute("teams", TeamServiceFactory.createInstance().getTeamsForEmployee(id));
+                
             } else {
                 request.setAttribute("error", new ErrorViewModel(String.format("Employee id: %s not found", id)));
             }
