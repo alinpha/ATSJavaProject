@@ -33,12 +33,16 @@ CREATE PROCEDURE deleteemployee (
 IN id_param INT
 )
 BEGIN
-	-- DELETE FROM invoices WHERE id = id_param;
+	SET @count = (select count(*) from teammembers where employeeId = id_param);
+	IF (@count > 0)
+    THEN 
     UPDATE employees 
     SET deletedAt = now(), isDeleted = true
     WHERE id = id_param;
+    else
+    DELETE FROM employees WHERE id = id_param;
+    END IF;
     
-    -- DELETE FROM employeetasks WHERE employeeId = id_param;
 END//
 DELIMITER;
 

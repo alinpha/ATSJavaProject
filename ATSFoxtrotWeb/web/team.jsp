@@ -42,10 +42,10 @@
                                 <tr>                    
                                     <td>Member ${i}</td>
                                     <td>
-                                        <select>
+                                        <select name="selectedMember${i}">
                                             <option>Select Member</option>
                                             <c:forEach items="${employees}" var="emp">
-                                                <option>${emp.firstName} ${emp.lastName}</option>
+                                                <option value="${emp.id}">${emp.firstName} ${emp.lastName}</option>
                                             </c:forEach>
                                         </select>
                                     </td>

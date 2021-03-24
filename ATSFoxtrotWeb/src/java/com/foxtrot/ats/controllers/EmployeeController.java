@@ -9,8 +9,10 @@ import com.foxtrot.ats.models.ErrorViewModel;
 import com.foxtrot.atssystem.business.EmployeeServiceFactory;
 import com.foxtrot.atssystem.business.IEmployeeService;
 import com.foxtrot.atssystem.business.TaskServiceFactory;
+import com.foxtrot.atssystem.business.TeamService;
 import com.foxtrot.atssystem.business.TeamServiceFactory;
 import com.foxtrot.atssystem.models.EmployeeFactory;
+import com.foxtrot.atssystem.models.ErrorFactory;
 import com.foxtrot.atssystem.models.IEmployee;
 import java.io.IOException;
 import java.util.Date;
@@ -99,6 +101,20 @@ public class EmployeeController extends CommonController {
                     
                     break;
                 case "delete":
+                    employee.setId(id);
+                   
+                   
+                   
+                   if(service.deleteEmployee(id) == 0) {
+                       employee.addError(ErrorFactory.createInstance(10, "Could not delete employee. Zero rows affected"));
+                       super.setView(request, EMPS_MAINT_VIEW);
+                   } else {
+                       request.setAttribute("deleted", true);
+                       employee.setIsDeleted(true);
+                       employee.setDeletedAt(new Date());
+                   }
+                   
+                   request.setAttribute("employee", employee);
                    
                     break;
             }

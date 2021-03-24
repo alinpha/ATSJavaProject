@@ -43,7 +43,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public int deleteEmployee(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return repo.deleteEmployee(id);
     }
 
     @Override

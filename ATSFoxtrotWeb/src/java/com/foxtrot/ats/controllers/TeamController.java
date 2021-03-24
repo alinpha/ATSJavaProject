@@ -12,6 +12,7 @@ import com.foxtrot.atssystem.business.TeamServiceFactory;
 import com.foxtrot.atssystem.models.EmployeeFactory;
 import com.foxtrot.atssystem.models.IEmployee;
 import com.foxtrot.atssystem.models.ITeam;
+import com.foxtrot.atssystem.models.Team;
 import com.foxtrot.atssystem.models.TeamFactory;
 import java.io.IOException;
 import java.util.Date;
@@ -47,14 +48,12 @@ public class TeamController extends CommonController {
 
             //Set attribute as team or error
             if(team != null) {
-                request.setAttribute("boom", "wow");
                 
                 request.setAttribute("team", team);
             } else {
                 team = TeamFactory.createInstance();
                 team.setId(0);
                 request.setAttribute("team", team);
-                request.setAttribute("boom", "lalala");
                 request.setAttribute("error", new ErrorViewModel(String.format("Team id: %s not found", id)));
             }
             
@@ -63,7 +62,7 @@ public class TeamController extends CommonController {
             super.setView(request, TEAMS_MAINT_VIEW);
         } else {
             //Set attribute as list of the teams
-            request.setAttribute("boom", "ohno");
+            
             request.setAttribute("teams", service.getTeams());
             super.setView(request, TEAMS_VIEW);
         }
@@ -81,12 +80,20 @@ public class TeamController extends CommonController {
 
         try {
             String action = super.getValue(request, "action");
-            int id = super.getInteger(request, "hdnEmployeeId");
+            int id = super.getInteger(request, "hdnTeamId");
             
             //Declare team variable
             ITeam team = TeamFactory.createInstance();
             team.setName(super.getValue(request, "teamName"));
             //todo add all fields
+            List<IEmployee> members = EmployeeFactory.createListInstance();
+            for (int i=1; i<=Team.MEMBERS_COUNT; i++) {
+                IEmployee e = EmployeeFactory.createInstance();
+                String str = request.getParameter("selectedMember"+i);
+                e.setId(Integer.parseInt(str));
+                members.add(e);
+            }
+            team.setMembers(members);
 
             switch (action.toLowerCase()) {
                 case "create":

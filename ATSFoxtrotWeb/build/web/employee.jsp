@@ -60,6 +60,35 @@
                                 </tr>
                             </c:if>
                         </table>
+                            <h3>Teams</h3>
+                            <c:choose>
+                                <c:when test="${teams != null && teams.size() > 0}">
+                                    <ul>
+                                        <c:forEach items="${teams}" var="team">
+                                            <li>${team.name}</li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>No teams</p>
+                                </c:otherwise>
+                            </c:choose>
+                                
+                        <h3>Tasks</h3>
+                            <c:choose>
+                                <c:when test="${tasks != null && tasks.size() > 0}">
+                                    <ul>
+                                        <c:forEach items="${tasks}" var="task">
+                                            <li>${task.name}</li>
+                                        </c:forEach>
+                                    </ul>
+                                </c:when>
+                                <c:otherwise>
+                                    <p>No tasks</p>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                            
                         
                         <c:choose>
                             <c:when test="${ employee != null && employee.id != 0 }">

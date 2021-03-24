@@ -5,6 +5,7 @@
  */
 package com.foxtrot.atssystem.repository;
 
+import com.foxtrot.atssystem.models.IEmployee;
 import com.foxtrot.atssystem.models.ITeam;
 import com.foxtrot.atssystem.models.TeamFactory;
 import com.foxtrot.dataaccess.DALFactory;
@@ -24,6 +25,7 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
     private final String SPROC_SELECT_TEAMS = "CALL selectteams(null);";
     private final String SPROC_SELECT_TEAM = "CALL selectteams(?);";
     private final String SPROC_INSERT_TEAM = "CALL insertteam(?,?,?);";
+    private final String SPROC_INSERT_TEAM_MEMBER = "CALL insert_team_member(?,?);";
     
     private final String SPROC_SELECT_EMPLOYEE_TEAMS = "CALL select_employee_teams(?);";
     
@@ -38,7 +40,7 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
         int id = 0;
         
         try {
-            List<IParameter> params = new ArrayList();
+            List<IParameter> params = ParameterFactory.createListInstance();
             params.add(ParameterFactory.creteInstance(team.getName()));
             params.add(ParameterFactory.creteInstance(team.isOnCall()));
             
@@ -48,6 +50,12 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
             
             if(returnedValues != null) {
               id = Integer.parseInt(returnedValues.get(0).toString());
+              for (IEmployee emp:team.getMembers()) {
+                  params = ParameterFactory.createListInstance();
+                  params.add(ParameterFactory.creteInstance(emp.getId()));
+                  params.add(ParameterFactory.creteInstance(id));
+                  dataAccess.executeNonQuery(SPROC_INSERT_TEAM_MEMBER, params);
+              }
             }
             
         } catch (Exception e) {
@@ -84,7 +92,7 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
         try {
             List<IParameter> params = ParameterFactory.createListInstance();
             params.add(ParameterFactory.creteInstance(empId));
-            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_TEAMS, params);
+            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_EMPLOYEE_TEAMS, params);
             list = toListOfTeams(rs);
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -123,7 +131,7 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
         while(rs.next()) {
             team = TeamFactory.createInstance();
             team.setId(super.getInt("id", rs));
-            team.setName(rs.getString("teamName"));
+            team.setName(rs.getString("name"));
             team.setIsOnCall(rs.getBoolean("isOnCall"));
             team.setIsDeleted(rs.getBoolean("isDeleted"));
             team.setCreatedAt(rs.getDate("createdAt"));

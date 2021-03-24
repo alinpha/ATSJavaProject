@@ -26,6 +26,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
     private final String SPROC_SELECT_EMPLOYEES = "CALL selectemployees(null);";
     private final String SPROC_SELECT_EMPLOYEE = "CALL selectemployees(?);";
     private final String SPROC_INSERT_EMPLOYEE = "CALL insertemployee(?,?,?,?,?);";
+    private final String SPROC_DELETE_EMPLOYEE = "CALL deleteemployee(?);";
     
     
     
@@ -67,7 +68,25 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
 
     @Override
     public int deleteEmployee(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rowsAffected = 0;
+        
+        List<Object> returnValue;
+        List<IParameter> params = ParameterFactory.createListInstance();
+       
+        //add parameter in order they apear in stored proc
+       params.add(ParameterFactory.creteInstance(id));
+        
+       returnValue = dataAccess.executeNonQuery(SPROC_DELETE_EMPLOYEE, params);
+       
+       try {
+           if(returnValue != null) {
+               rowsAffected = Integer.parseInt(returnValue.get(0).toString());
+           }
+       } catch(Exception e) {
+           System.out.println(e.getMessage());
+       }
+        
+        return rowsAffected;
     }
 
     @Override

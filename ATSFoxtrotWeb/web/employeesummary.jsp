@@ -12,7 +12,7 @@
         <%@include file="WEB-INF/jspf/navigation.jspf" %>
         <main>
             <c:choose>
-                <c:when test="${ vm.rowsDeleted != null }">
+                <c:when test="${ deleted != null }">
                     <h4>Employee deleted Id: <span class="font-weight-bold">${employee.id}</span></h4>
                 </c:when>
                 <c:otherwise>

@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class Team extends Base implements ITeam {
     
-    private final int MEMBERS_COUNT = 2;
+    public static final int MEMBERS_COUNT = 2;
     
     private int id;
     private String name;
