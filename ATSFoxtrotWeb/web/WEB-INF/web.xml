@@ -113,6 +113,22 @@
         <servlet-name>TeamController</servlet-name>
         <url-pattern>/team/*</url-pattern>
     </servlet-mapping>
+    
+    
+    
+    
+    <servlet>
+        <servlet-name>SkillsController</servlet-name>
+        <servlet-class>com.foxtrot.ats.controllers.SkillsController</servlet-class>
+    </servlet>
+    <!-- Mapping for SkillsController -->
+   <!--Map for query string parameter to retrieve skills by employee id-->
+   <servlet-mapping>
+        <servlet-name>SkillsController</servlet-name>
+        <url-pattern>/skills/*</url-pattern>
+    </servlet-mapping>
+   
+   
    
     
     <welcome-file-list>

@@ -59,4 +59,13 @@ public class EmployeeService implements IEmployeeService {
        
     }
     
+    @Override
+    public int addEmployeeSkill(int eId, int sId) {
+        if (eId <= 0 || sId <= 0) {
+            return 0;
+        }
+        
+        return repo.insertEmployeeSkill(eId, sId);
+    }
+    
 }

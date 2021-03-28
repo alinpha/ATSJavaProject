@@ -1,8 +1,28 @@
 USE ats2021foxtrot;
 
 -- EMPLOYEE STORED PROCEDURES
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS add_employee_skill;
+// DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE add_employee_skill(
+IN emp_id_param int,
+IN tsk_id_param int,
+OUT id_out INT
+)
+BEGIN
+
+	INSERT INTO employeetasks(employeeId,taskId)
+    VALUES(emp_id_param,tsk_id_param);
     
-    DELIMITER //
+    SET id_out = LAST_INSERT_ID();
+
+END//
+DELIMITER ;
+    
+DELIMITER //
 DROP PROCEDURE IF EXISTS insertemployee;
 // DELIMITER;
 

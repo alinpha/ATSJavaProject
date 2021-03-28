@@ -20,4 +20,6 @@ public interface IEmployeeService {
     
     IEmployee getEmployee(int id);
     List<IEmployee> getEmployees();
+    
+    int addEmployeeSkill(int eId, int sId);
 }

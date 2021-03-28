@@ -31,7 +31,10 @@
                                     
                                     <td>${ emp.firstName }</td>
                                     <td>${ emp.lastName }</td>
-                                    <td><a href="employee/${ emp.id}">Show</a></td>  
+                                    <td class="text-right">
+                                        <a href="employee/${ emp.id}">Details</a> | 
+                                        <a href="skills/${ emp.id}">Skills</a>
+                                    </td>
                                 </tr>
                             </c:forEach>
 

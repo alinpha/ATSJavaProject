@@ -17,5 +17,6 @@ public interface IEmployeeRepository {
     int updateEmployee(IEmployee employee);
     int deleteEmployee(int id);
     List<IEmployee> retrieveEmployees();
-    IEmployee retrieveEmployee(int id);    
+    IEmployee retrieveEmployee(int id);   
+    int insertEmployeeSkill(int empId, int taskId);
 }

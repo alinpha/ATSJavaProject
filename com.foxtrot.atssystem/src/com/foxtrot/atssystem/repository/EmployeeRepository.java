@@ -27,6 +27,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
     private final String SPROC_SELECT_EMPLOYEE = "CALL selectemployees(?);";
     private final String SPROC_INSERT_EMPLOYEE = "CALL insertemployee(?,?,?,?,?);";
     private final String SPROC_DELETE_EMPLOYEE = "CALL deleteemployee(?);";
+    private final String SPROC_ADD_SKILL = "CALL add_employee_skill(?,?,?);";
     
     
     
@@ -101,7 +102,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
         return list;
     }
 
-    //@Override
+    @Override
     public IEmployee retrieveEmployee(int id) {
         List<IEmployee> list = EmployeeFactory.createListInstance();
         
@@ -118,6 +119,29 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
             return list.get(0);
         }
         return null;
+    }
+    
+    @Override
+    public int insertEmployeeSkill(int empId, int taskId) {
+        int id = 0;
+        
+        try {
+            List<IParameter> params = new ArrayList();
+            params.add(ParameterFactory.creteInstance(empId));
+            params.add(ParameterFactory.creteInstance(taskId));
+            
+            params.add(ParameterFactory.creteInstance(id, IParameter.Direction.OUT, java.sql.Types.INTEGER));
+      
+            List<Object> returnedValues = dataAccess.executeNonQuery(SPROC_ADD_SKILL, params);
+            
+            if(returnedValues != null) {
+              id = Integer.parseInt(returnedValues.get(0).toString());
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
     }
     
     /**

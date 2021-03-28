@@ -89,8 +89,9 @@ public class TeamController extends CommonController {
             List<IEmployee> members = EmployeeFactory.createListInstance();
             for (int i=1; i<=Team.MEMBERS_COUNT; i++) {
                 IEmployee e = EmployeeFactory.createInstance();
-                String str = request.getParameter("selectedMember"+i);
-                e.setId(Integer.parseInt(str));
+                //String str = request.getParameter("selectedMember"+i);
+                int mId = getInteger(request, "selectedMember"+i);
+                e.setId(mId);
                 members.add(e);
             }
             team.setMembers(members);
@@ -103,8 +104,15 @@ public class TeamController extends CommonController {
                     request.setAttribute("team", team);
                     if(!service.isValid(team)) {
                         request.setAttribute("errors", team.getErrors());
+                        request.setAttribute("employees", EmployeeServiceFactory.createInstance().getEmployees());
                         super.setView(request, TEAMS_MAINT_VIEW);
-                    } 
+                    } else {
+                        for(IEmployee e : team.getMembers()) {
+                            IEmployee e2 = EmployeeServiceFactory.createInstance().getEmployee(e.getId());
+                            e.setFirstName(e2.getFirstName());
+                            e.setLastName(e2.getLastName());
+                        }
+                    }
                     break;
                 case "save":
                     
@@ -116,6 +124,7 @@ public class TeamController extends CommonController {
         } catch (Exception e) {
             super.setView(request, TEAMS_MAINT_VIEW);
             request.setAttribute("error", new ErrorViewModel("An error occurred attempting to maintain teams"));
+            request.setAttribute("employees", EmployeeServiceFactory.createInstance().getEmployees());
         }
 
         super.getView().forward(request, response);
