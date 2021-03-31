@@ -68,4 +68,30 @@ public class EmployeeService implements IEmployeeService {
         return repo.insertEmployeeSkill(eId, sId);
     }
     
+    @Override
+    public int removeEmployeeSkill(int eId, int sId) {
+        if (eId <= 0 || sId <= 0) {
+            return 0;
+        }
+        
+        //check there are no future jobs require this skill
+        //todo after job dev completed
+        
+        return repo.insertEmployeeSkill(eId, sId);
+    }
+    
+    @Override
+    public List<IEmployee> getEmployeesBySin(String sin) {
+         
+       return repo.retrieveEmployeesBySin(sin);
+       
+    }
+    
+    @Override
+    public List<IEmployee> getEmployeesByLastName(String lastName) {
+         
+       return repo.retrieveEmployeesByLastName(lastName);
+       
+    }
+    
 }

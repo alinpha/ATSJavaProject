@@ -15,7 +15,9 @@ import com.foxtrot.atssystem.models.EmployeeFactory;
 import com.foxtrot.atssystem.models.ErrorFactory;
 import com.foxtrot.atssystem.models.IEmployee;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,17 +65,51 @@ public class EmployeeController extends CommonController {
             request.setAttribute("employees", service.getEmployees());
             super.setView(request, EMPS_VIEW);
         }
-        request.setAttribute("boom", "lol");
+        //request.setAttribute("boom", "lol");
         super.getView().forward(request, response);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        super.setView(request, EMP_SUMMARY_VIEW);
+        
         //Employee service instance
         IEmployeeService service = EmployeeServiceFactory.createInstance();
+        
+        
+        if (request.getParameter("search") != null){
+            
+            
+            String criteria = getValue(request, "searchBy");
+            String query = getValue(request, "query");
+            
+            List<IEmployee> list = new ArrayList();
+            
+            if (criteria != null && !query.equals("")) {
+                
+                if(criteria.equals("sin")) {
+                    list = service.getEmployeesBySin("%"+query+"%");
+                    
+                } else if(criteria.equals("name")) {
+                    list = service.getEmployeesByLastName("%"+query+"%");
+                }
+                
+                request.setAttribute("searchResults", true);
+                request.setAttribute("query", query);
+            
+            } else {
+                list = service.getEmployees();
+            }
+            
+            request.setAttribute("employees", list);
+            super.setView(request, EMPS_VIEW);
+            super.getView().forward(request, response);
+            return;
+            
+        }
+
+        super.setView(request, EMP_SUMMARY_VIEW);
+        
 
         try {
             String action = super.getValue(request, "action");

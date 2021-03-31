@@ -30,7 +30,12 @@
                         </c:if>
                         <ul>
                         <c:forEach items="${skills}" var="skill">
-                            <li>${skill.name}</li>
+                            <li>
+                                
+                                <button type="submit" class="btn btn-outline-danger btn-sm mb-1" value="${skill.id}" name="actionRemove">
+                                    -
+                                </button> ${skill.name}
+                            </li>
                         </c:forEach>
                         </ul>
                             
@@ -41,8 +46,10 @@
                         <ul>
                         <c:forEach items="${tasks}" var="task">
                             <li>
-                                ${task.name}
-                                <input class="btn btn-primary" type="submit" value="${task.id}" name="action" />
+                                
+                                <button type="submit" class="btn btn-outline-success btn-sm mb-1" value="${task.id}" name="actionAdd">
+                                    +
+                                </button> ${task.name}
                             </li>
                         </c:forEach>
                         </ul>

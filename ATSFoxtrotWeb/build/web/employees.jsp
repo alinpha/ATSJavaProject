@@ -11,6 +11,23 @@
         <%@include file="WEB-INF/jspf/navigation.jspf" %>
         <main>
             <h1 class="text-center display-4 grey">Employees List</h1>
+            
+            <form class="text-center m-5" method="post" action="employees">
+                Search By 
+                <select class="form-select form-select-sm" name="searchBy">
+                    
+                    <option value="sin">SIN</option>
+                    <option value="name">Last Name</option>
+                </select>
+                <input type="text" name="query"/> <button class="btn btn-primary" type="submit" name="search">Search</button>
+            </form>
+            
+            <c:if test="${searchResults}">
+                <div class="m-2">
+                    Search Results for <i>${query}</i> <a href="employees">Clear</a>
+                </div>
+            </c:if>
+            
             <section>
                 <c:set var="employeesCount" value="${ employees.size()}" />
                 <c:choose>

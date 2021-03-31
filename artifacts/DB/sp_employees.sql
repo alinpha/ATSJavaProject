@@ -3,6 +3,34 @@ USE ats2021foxtrot;
 -- EMPLOYEE STORED PROCEDURES
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS selectemployees_sin;
+// DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE selectemployees_sin (
+IN sin_param varchar(9)
+)
+BEGIN
+	SELECT * FROM employees where sin like sin_param
+    ORDER BY createdAt;
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS selectemployees_lastname;
+// DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE selectemployees_lastname (
+IN l_param varchar(25)
+)
+BEGIN
+	SELECT * FROM employees where lastName like l_param
+    ORDER BY createdAt;
+END//
+DELIMITER ;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS add_employee_skill;
 // DELIMITER;
 
@@ -107,5 +135,6 @@ BEGIN
     ORDER BY createdAt;
 END//
 DELIMITER ;
+
 
 

@@ -24,6 +24,8 @@ import javax.sql.rowset.CachedRowSet;
 public class EmployeeRepository extends BaseRepository implements IEmployeeRepository {
     
     private final String SPROC_SELECT_EMPLOYEES = "CALL selectemployees(null);";
+    private final String SPROC_SELECT_EMPLOYEES_WITH_SIN = "CALL selectemployees_sin(?);";
+    private final String SPROC_SELECT_EMPLOYEES_WITH_LAST_NAME = "CALL selectemployees_lastname(?);";
     private final String SPROC_SELECT_EMPLOYEE = "CALL selectemployees(?);";
     private final String SPROC_INSERT_EMPLOYEE = "CALL insertemployee(?,?,?,?,?);";
     private final String SPROC_DELETE_EMPLOYEE = "CALL deleteemployee(?);";
@@ -95,6 +97,34 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
         List<IEmployee> list = EmployeeFactory.createListInstance();
         try {
             CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_EMPLOYEES, null);
+            list = toListOfEmployees(rs);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
+    @Override
+    public List<IEmployee> retrieveEmployeesBySin(String sin) {
+        List<IEmployee> list = EmployeeFactory.createListInstance();
+        try {
+            List<IParameter> params = ParameterFactory.createListInstance();
+            params.add(ParameterFactory.creteInstance(sin));
+            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_EMPLOYEES_WITH_SIN, params);
+            list = toListOfEmployees(rs);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
+    @Override
+    public List<IEmployee> retrieveEmployeesByLastName(String lastName) {
+        List<IEmployee> list = EmployeeFactory.createListInstance();
+        try {
+            List<IParameter> params = ParameterFactory.createListInstance();
+            params.add(ParameterFactory.creteInstance(lastName));
+            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_EMPLOYEES_WITH_LAST_NAME, params);
             list = toListOfEmployees(rs);
         } catch(Exception e) {
             System.out.println(e.getMessage());

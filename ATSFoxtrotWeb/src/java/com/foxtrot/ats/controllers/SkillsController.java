@@ -78,11 +78,18 @@ public class SkillsController extends CommonController {
         IEmployeeService service = EmployeeServiceFactory.createInstance();
 
         try {
-            int taskId = super.getInteger(request, "action");
+            int taskIdAdd = super.getInteger(request, "actionAdd");
+            int taskIRemove = super.getInteger(request, "actionRemove");
             int empId = super.getInteger(request, "hdnEmployeeId");
             
-            //insert to employeetasks
-            service.addEmployeeSkill(empId, taskId);
+            
+            if(taskIdAdd > 0) {
+                service.addEmployeeSkill(empId, taskIdAdd);
+            } else if (taskIRemove > 0) {
+                
+                service.removeEmployeeSkill(empId, taskIdAdd);
+            }
+            
             
             //set attributes employee and their skills + all tasks
             request.setAttribute("employee", service.getEmployee(empId));

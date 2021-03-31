@@ -22,4 +22,8 @@ public interface IEmployeeService {
     List<IEmployee> getEmployees();
     
     int addEmployeeSkill(int eId, int sId);
+    int removeEmployeeSkill(int eId, int sId);
+    List<IEmployee> getEmployeesBySin(String sin);
+    List<IEmployee> getEmployeesByLastName(String sin);
+            
 }
