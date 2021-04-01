@@ -5,10 +5,23 @@
  */
 package com.foxtrot.atssystem.models;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author Izes Souto
  */
 public class JobFactory {
+    public static IJob createInstance() {
+        return new Job();
+    }
     
+    public static IJob createInstance(ITeam team, String desc, String cName, Date start, Date end) {
+        return new Job(team, desc, cName, start, end);
+    }
+    
+    public static ArrayList<IJob> createListInstance() {
+        return new ArrayList();
+    }
 }

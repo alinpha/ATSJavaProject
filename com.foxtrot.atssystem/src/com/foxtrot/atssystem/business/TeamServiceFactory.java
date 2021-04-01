@@ -9,7 +9,7 @@ package com.foxtrot.atssystem.business;
  *
  * @author Izes Souto
  */
-public class TeamServiceFactory {
+public abstract class TeamServiceFactory {
     public static ITeamService createInstance() {
         return new TeamService();
     }

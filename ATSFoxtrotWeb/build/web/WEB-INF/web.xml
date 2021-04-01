@@ -130,6 +130,24 @@
    
    
    
+   
+   <servlet>
+        <servlet-name>JobController</servlet-name>
+        <servlet-class>com.foxtrot.ats.controllers.JobController</servlet-class>
+    </servlet>
+    <!-- Mapping for JobController -->
+    <!-- Map for retrieving all jobs -->
+   <servlet-mapping>
+       <servlet-name>JobController</servlet-name>
+       <url-pattern>/jobs</url-pattern>
+   </servlet-mapping>
+   <!--Map for query string parameter to retrieve job by id-->
+   <servlet-mapping>
+        <servlet-name>JobController</servlet-name>
+        <url-pattern>/job/*</url-pattern>
+    </servlet-mapping>
+   
+   
     
     <welcome-file-list>
         <welcome-file>home</welcome-file>

@@ -5,10 +5,22 @@
  */
 package com.foxtrot.atssystem.models;
 
+import java.util.Date;
+
 /**
  *
  * @author Izes Souto
  */
-public class IJob {
-    
+public interface IJob extends IBase {
+    int getId();
+    void setId(int id);
+    ITeam getTeam();
+    String getDescription();
+    void setDescription(String description);
+    String getClientName();
+    void setClientName(String clientName);
+    Date getStart();
+    void setStart(Date start);
+    Date getEnd();
+    void setEnd(Date end);
 }
