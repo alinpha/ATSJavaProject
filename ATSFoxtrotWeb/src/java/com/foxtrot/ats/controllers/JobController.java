@@ -8,6 +8,7 @@ package com.foxtrot.ats.controllers;
 import com.foxtrot.ats.models.ErrorViewModel;
 import com.foxtrot.atssystem.business.IJobService;
 import com.foxtrot.atssystem.business.JobServiceFactory;
+import com.foxtrot.atssystem.business.TaskServiceFactory;
 import com.foxtrot.atssystem.business.TeamServiceFactory;
 import com.foxtrot.atssystem.models.IJob;
 import com.foxtrot.atssystem.models.JobFactory;
@@ -46,7 +47,7 @@ public class JobController extends CommonController {
             if(job != null) {
                 request.setAttribute("job", job);
                 
-                //request.setAttribute("tasks", TaskServiceFactory.createInstance().getTasksForEmployee(id));
+                request.setAttribute("tasks", TaskServiceFactory.createInstance().getTasks());
                 request.setAttribute("teams", TeamServiceFactory.createInstance().getTeams());
                 
             } else {

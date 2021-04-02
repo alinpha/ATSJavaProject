@@ -74,7 +74,7 @@ CREATE TABLE `teammembers` (
     REFERENCES `teams` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-    
+
 CREATE TABLE `jobs` (
   `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `teamId` INT NOT NULL,
@@ -82,6 +82,7 @@ CREATE TABLE `jobs` (
   `clientName` NVARCHAR(25) NOT NULL,
   `start` DATETIME NOT NULL,
   `end` DATETIME NOT NULL,
+  `isOnSite` tinyint(4) NOT NULL,
   INDEX `fk_tem3_id_idx` (`teamId` ASC),
   CONSTRAINT `fk_tem3_id`
     FOREIGN KEY (`teamId`)

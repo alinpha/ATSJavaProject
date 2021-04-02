@@ -23,4 +23,6 @@ public interface IJob extends IBase {
     void setStart(Date start);
     Date getEnd();
     void setEnd(Date end);
+    boolean isOnSite();
+    void setIsOnSite(boolean isOnSite);
 }

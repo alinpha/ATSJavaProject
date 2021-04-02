@@ -36,6 +36,15 @@
                             </tr>
                             
                             <tr>
+                                <td>Tasks</td>
+                                <td>
+                                    <c:forEach items="${tasks}" var="task">
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="task_temp" value="${task.id}">${task.name}<br/>
+                                    </c:forEach>
+                                </td>
+                            </tr>
+                            
+                            <tr>
                                 <td>
                                     Team
                                 </td>
@@ -48,7 +57,10 @@
                                     </select>
                                   </td>
                               </tr>
-                            
+                            <tr>                    
+                                <td>Is On Site</td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="isOnSite" value="" ${job.isOnSite() ? 'checked' : ''}></td>
+                            </tr>
                            
                         </table>
                         

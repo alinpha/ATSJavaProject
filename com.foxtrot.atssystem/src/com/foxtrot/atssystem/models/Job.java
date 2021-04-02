@@ -18,19 +18,30 @@ public class Job extends Base implements IJob {
     private String clientName;
     private Date start;
     private Date end;
+    private boolean isOnSite;
     
     public Job() {
         
     }
     
-    public Job(ITeam team, String desc, String cName, Date start, Date end) {
+    public Job(ITeam team, String desc, String cName, Date start, Date end, boolean isOnSite) {
         setTeam(team);
         setDescription(description);
         setClientName(cName);
         setStart(start);
         setEnd(end);
+        setIsOnSite(isOnSite);
     }
 
+    public boolean isOnSite() {
+        return isOnSite;
+    }
+
+    public void setIsOnSite(boolean isOnSite) {
+        this.isOnSite = isOnSite;
+    }
+
+    
     
     public int getId() {
         return id;

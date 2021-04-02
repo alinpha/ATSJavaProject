@@ -19,7 +19,7 @@ import java.util.List;
 public class JobRepository extends BaseRepository implements IJobRepository {
     private final String SPROC_SELECT_JOBS = "CALL selectjobs(null);";
     private final String SPROC_SELECT_JOB = "CALL selectjobs(?);";
-    private final String SPROC_INSERT_JOB = "CALL insertjob(?,?,?,?,?,?);";
+    private final String SPROC_INSERT_JOB = "CALL insertjob(?,?,?,?,?,?,?);";
     
     //private final String SPROC_SELECT_EMPLOYEE_TASKS = "CALL select_employee_tasks(?);";
     
@@ -39,6 +39,7 @@ public class JobRepository extends BaseRepository implements IJobRepository {
             params.add(ParameterFactory.creteInstance(job.getClientName()));
             params.add(ParameterFactory.creteInstance(job.getStart()));
             params.add(ParameterFactory.creteInstance(job.getEnd()));
+            params.add(ParameterFactory.creteInstance(job.isOnSite()));
             params.add(ParameterFactory.creteInstance(id, IParameter.Direction.OUT, java.sql.Types.INTEGER));
             
             List<Object> returnedValues = dataAccess.executeNonQuery(SPROC_INSERT_JOB, params);

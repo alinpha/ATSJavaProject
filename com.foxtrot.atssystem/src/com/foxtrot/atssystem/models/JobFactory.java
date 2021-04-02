@@ -17,8 +17,8 @@ public class JobFactory {
         return new Job();
     }
     
-    public static IJob createInstance(ITeam team, String desc, String cName, Date start, Date end) {
-        return new Job(team, desc, cName, start, end);
+    public static IJob createInstance(ITeam team, String desc, String cName, Date start, Date end, boolean site) {
+        return new Job(team, desc, cName, start, end, site);
     }
     
     public static ArrayList<IJob> createListInstance() {
