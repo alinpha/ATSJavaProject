@@ -12,7 +12,7 @@ import java.util.Date;
  *
  * @author Izes Souto
  */
-public class JobFactory {
+public abstract class JobFactory {
     public static IJob createInstance() {
         return new Job();
     }

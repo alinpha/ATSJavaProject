@@ -5,7 +5,9 @@
  */
 package com.foxtrot.atssystem.models;
 
+
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -15,6 +17,7 @@ public interface IJob extends IBase {
     int getId();
     void setId(int id);
     ITeam getTeam();
+    void setTeam(ITeam team);
     String getDescription();
     void setDescription(String description);
     String getClientName();
@@ -25,4 +28,6 @@ public interface IJob extends IBase {
     void setEnd(Date end);
     boolean isOnSite();
     void setIsOnSite(boolean isOnSite);
+    List<IJobTask> getJobTasks();
+    void setJobTasks(List<IJobTask> tasks);
 }

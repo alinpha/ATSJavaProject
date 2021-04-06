@@ -5,7 +5,9 @@
  */
 package com.foxtrot.atssystem.models;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -20,11 +22,14 @@ public class Job extends Base implements IJob {
     private Date end;
     private boolean isOnSite;
     
+    private List<IJobTask> jobTasks;
+    
     public Job() {
         
     }
     
     public Job(ITeam team, String desc, String cName, Date start, Date end, boolean isOnSite) {
+        setId(id);
         setTeam(team);
         setDescription(description);
         setClientName(cName);
@@ -32,6 +37,8 @@ public class Job extends Base implements IJob {
         setEnd(end);
         setIsOnSite(isOnSite);
     }
+    
+    
 
     public boolean isOnSite() {
         return isOnSite;
@@ -56,9 +63,6 @@ public class Job extends Base implements IJob {
     }
 
     public void setTeam(ITeam team) {
-        //Team - Required and 
-        //must have skillset coverage to be booked for a job 
-        //except off hours and the on call team is booked regardless of skills - todo in sprint 3
         this.team = team;
     }
 
@@ -79,7 +83,11 @@ public class Job extends Base implements IJob {
     }
 
     public void setClientName(String clientName) {
-        this.clientName = clientName;
+        if(clientName == null || clientName.trim().isEmpty()) {
+            this.addError(ErrorFactory.createInstance(3, "Client name is required"));
+        } else {
+            this.clientName = clientName;
+        }
     }
 
     public Date getStart() {
@@ -87,17 +95,30 @@ public class Job extends Base implements IJob {
     }
 
     public void setStart(Date start) {
-        this.start = start;
+        
+        if (start == null) {
+            this.addError(ErrorFactory.createInstance(4, "Start is required"));
+        } else if (start.before(new Date())) {
+            this.addError(ErrorFactory.createInstance(4, "Start must be in future"));
+        } else {
+            this.start = start;
+        }
     }
 
     public Date getEnd() {
         return end;
     }
-
+    
     public void setEnd(Date end) {
         this.end = end;
     }
     
+    public List<IJobTask> getJobTasks() {
+        return this.jobTasks;
+    }
     
+    public void setJobTasks(List<IJobTask> jobTasks) {
+        this.jobTasks = jobTasks;
+    }
     
 }

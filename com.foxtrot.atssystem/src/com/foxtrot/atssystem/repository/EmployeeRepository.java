@@ -30,6 +30,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
     private final String SPROC_INSERT_EMPLOYEE = "CALL insertemployee(?,?,?,?,?);";
     private final String SPROC_DELETE_EMPLOYEE = "CALL deleteemployee(?);";
     private final String SPROC_ADD_SKILL = "CALL add_employee_skill(?,?,?);";
+    private final String SPROC_SELECT_EMPLOYEES_IN_TEAM = "CALL select_employees_in_team(?);";
     
     
     
@@ -97,6 +98,21 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
         List<IEmployee> list = EmployeeFactory.createListInstance();
         try {
             CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_EMPLOYEES, null);
+            list = toListOfEmployees(rs);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return list;
+    }
+    
+    @Override
+    public List<IEmployee> retrieveEmployeesInTeam(int teamId) {
+        List<IEmployee> list = EmployeeFactory.createListInstance();
+        
+        try {
+            List<IParameter> params = ParameterFactory.createListInstance();
+            params.add(ParameterFactory.creteInstance(teamId));
+            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_EMPLOYEES_IN_TEAM, params);
             list = toListOfEmployees(rs);
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -197,6 +213,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
             emp.setCreatedAt(rs.getDate("createdAt"));
             emp.setUpdatedAt(rs.getDate("updatedAt"));
             emp.setDeletedAt(rs.getDate("deletedAt"));
+            
             
             
             list.add(emp);

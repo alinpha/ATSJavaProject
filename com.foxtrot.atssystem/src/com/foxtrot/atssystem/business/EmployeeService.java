@@ -6,8 +6,10 @@
 package com.foxtrot.atssystem.business;
 
 import com.foxtrot.atssystem.models.IEmployee;
+import com.foxtrot.atssystem.models.ITask;
 import com.foxtrot.atssystem.repository.EmployeeRepoFactory;
 import com.foxtrot.atssystem.repository.IEmployeeRepository;
+import com.foxtrot.atssystem.repository.TaskRepoFactory;
 import java.util.List;
 
 /**
@@ -48,14 +50,22 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public IEmployee getEmployee(int id) {
-        return repo.retrieveEmployee(id);
         
+        IEmployee e = repo.retrieveEmployee(id);
+        return e;
     }
 
     @Override
     public List<IEmployee> getEmployees() {
          
        return repo.retrieveEmployees();
+       
+    }
+    
+    @Override
+    public List<IEmployee> getEmployeesInTeam(int teamId) {
+         
+       return repo.retrieveEmployeesInTeam(teamId);
        
     }
     

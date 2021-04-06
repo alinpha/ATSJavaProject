@@ -25,5 +25,5 @@ public interface IEmployeeService {
     int removeEmployeeSkill(int eId, int sId);
     List<IEmployee> getEmployeesBySin(String sin);
     List<IEmployee> getEmployeesByLastName(String sin);
-            
+    List<IEmployee> getEmployeesInTeam(int teamId);
 }

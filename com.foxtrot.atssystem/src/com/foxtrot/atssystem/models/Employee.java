@@ -137,4 +137,13 @@ public class Employee extends Base implements IEmployee {
         this.tasks.add(task);
     }
     
+    public boolean containsTask(ITask task) {
+        for(ITask t:getTasks()) {
+            if (t.getId() == task.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

@@ -6,6 +6,7 @@
 package com.foxtrot.atssystem.models;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -47,4 +48,8 @@ public interface IEmployee extends IBase {
     Date getDeletedAt();
 
     void setDeletedAt(Date date);
+    
+    List<ITask> getTasks();
+    
+    boolean containsTask(ITask task);
 }

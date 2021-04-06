@@ -3,6 +3,19 @@ USE ats2021foxtrot;
 -- EMPLOYEE STORED PROCEDURES
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS select_employees_in_team;
+// DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE select_employees_in_team (
+IN team_id_param int
+)
+BEGIN
+	SELECT * FROM employees where id in (select employeeId from teammembers where teamId = team_id_param);
+END//
+DELIMITER ;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS selectemployees_sin;
 // DELIMITER;
 

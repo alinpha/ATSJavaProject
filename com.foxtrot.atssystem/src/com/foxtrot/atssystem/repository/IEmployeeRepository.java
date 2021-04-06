@@ -21,4 +21,5 @@ public interface IEmployeeRepository {
     int insertEmployeeSkill(int empId, int taskId);
     List<IEmployee> retrieveEmployeesBySin(String sin);
     List<IEmployee> retrieveEmployeesByLastName(String lastName);
+    List<IEmployee> retrieveEmployeesInTeam(int teamId);
 }

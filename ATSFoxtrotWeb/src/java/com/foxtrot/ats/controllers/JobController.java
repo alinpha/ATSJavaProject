@@ -6,13 +6,26 @@
 package com.foxtrot.ats.controllers;
 
 import com.foxtrot.ats.models.ErrorViewModel;
+import com.foxtrot.atssystem.business.EmployeeServiceFactory;
 import com.foxtrot.atssystem.business.IJobService;
 import com.foxtrot.atssystem.business.JobServiceFactory;
 import com.foxtrot.atssystem.business.TaskServiceFactory;
 import com.foxtrot.atssystem.business.TeamServiceFactory;
 import com.foxtrot.atssystem.models.IJob;
+import com.foxtrot.atssystem.models.ITask;
+import com.foxtrot.atssystem.models.ITeam;
 import com.foxtrot.atssystem.models.JobFactory;
+import com.foxtrot.atssystem.models.JobTaskFactory;
+import com.foxtrot.atssystem.models.TeamFactory;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,6 +81,88 @@ public class JobController extends CommonController {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        super.setView(request, JOB_SUMMARY_VIEW);
+        //job service instance
+        IJobService service = JobServiceFactory.createInstance();
+
+        try {
+            String action = super.getValue(request, "action");
+            int id = super.getInteger(request, "hdnJobId");
+            
+            //Declare job variable
+            IJob job = JobFactory.createInstance();
+            job.setDescription(super.getValue(request, "jobDesc"));
+            job.setClientName(getValue(request, "clientName"));
+            //String[] taskIds = request.getParameterValues("jobtasks");
+            job.setJobTasks(JobTaskFactory.createListInstance());
+            
+            String[] ids = request.getParameterValues("jobtasks");
+            if (ids != null) {
+                for (String idStr : ids) {
+                    int taskId = Integer.parseInt(idStr);
+                    ITask task = TaskServiceFactory.createInstance().getTask(taskId);
+                    job.getJobTasks().add(JobTaskFactory.createInstance(job, task, 0, 0));
+                }
+            }
+            
+            int teamId = getInteger("selectTeam");
+            
+            ITeam team = TeamServiceFactory.createInstance().getTeam(teamId);
+            team.setMembers(EmployeeServiceFactory.createInstance().getEmployeesInTeam(teamId));
+            
+            job.setTeam(team);
+            
+            job.setIsOnSite(request.getParameter("boom") != null);
+            
+            String sDate = request.getParameter("jobStartDate");
+            if (sDate != null && !sDate.equals("")) {
+                String sTime = request.getParameter("jobStartTime");
+                if (!(sTime == null || sTime.equals(""))) {
+                    LocalDate ld = LocalDate.parse(sDate);
+            
+                    DateTimeFormatter f = DateTimeFormatter.ofPattern("hh:mma");
+
+                    LocalTime lt = LocalTime.parse(sTime, f);
+                    Calendar c = Calendar.getInstance();
+                    c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth(), lt.getHour(), lt.getMinute());
+                    job.setStart(c.getTime());
+                } else {
+                    job.setStart(null);
+                }
+            } else {
+                job.setStart(null);
+            }
+            
+
+            switch (action.toLowerCase()) {
+                case "create":
+                    job = service.createJob(job);
+                    request.setAttribute("job", job);
+                    if(!service.isValid(job)) {
+                        request.setAttribute("errors", job.getErrors());
+                        request.setAttribute("tasks", TaskServiceFactory.createInstance().getTasks());
+                        request.setAttribute("teams", TeamServiceFactory.createInstance().getTeams());
+                        super.setView(request, JOBS_MAINT_VIEW);
+                    } else {
+                        
+                    }
+                    break;
+                case "save":
+                    
+                    break;
+                case "delete":
+                   
+                    break;
+            }
+        } catch (Exception e) {
+            
+            request.setAttribute("error", new ErrorViewModel("An error occurred attempting to maintain jobs"));
+            request.setAttribute("teams", TeamServiceFactory.createInstance().getTeams());
+            request.setAttribute("tasks", TaskServiceFactory.createInstance().getTasks());
+            super.setView(request, JOBS_MAINT_VIEW);
+        }
+
+        super.getView().forward(request, response);
         
     }
     
