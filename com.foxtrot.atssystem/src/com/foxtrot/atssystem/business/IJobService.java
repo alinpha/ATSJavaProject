@@ -6,6 +6,7 @@
 package com.foxtrot.atssystem.business;
 
 import com.foxtrot.atssystem.models.IJob;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,5 @@ import com.foxtrot.atssystem.models.IJob;
 public interface IJobService {
     boolean isValid(IJob job);
     IJob createJob(IJob job);
+    List<IJob> getJobsForToday();
 }

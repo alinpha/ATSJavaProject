@@ -6,6 +6,8 @@
 package com.foxtrot.atssystem.repository;
 
 import com.foxtrot.atssystem.models.IJob;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -13,4 +15,6 @@ import com.foxtrot.atssystem.models.IJob;
  */
 public interface IJobRepository {
     int insertJob(IJob job);
+    boolean areJobsWithDatesExist(int teamId, Date start, Date end);
+    List<IJob> retrieveJobsForToday();
 }

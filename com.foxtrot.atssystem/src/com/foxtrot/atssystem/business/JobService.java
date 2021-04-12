@@ -11,6 +11,7 @@ import com.foxtrot.atssystem.models.IJob;
 import com.foxtrot.atssystem.models.IJobTask;
 import com.foxtrot.atssystem.models.ITask;
 import com.foxtrot.atssystem.models.ITeam;
+import com.foxtrot.atssystem.models.JobTask;
 import com.foxtrot.atssystem.repository.IJobRepository;
 import com.foxtrot.atssystem.repository.JobRepoFactory;
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.List;
 
 /**
  *
- * @author izess
+ * @author Aline Vetrov
  */
 public class JobService implements IJobService {
     private final IJobRepository repo;
@@ -39,6 +40,7 @@ public class JobService implements IJobService {
        
        ITeam team = job.getTeam();
        if (team == null) {
+           job.addError(ErrorFactory.createInstance(5, "Team is required"));
            return false;
        }
        
@@ -54,13 +56,13 @@ public class JobService implements IJobService {
        
        if (!team.isOnCall()) {
            
-           if (!canTeamFillTasks()) {
-                job.addError(ErrorFactory.createInstance(5, "Team " + team.getName() + " cannot fill job tasks"));
+           if (!canTeamFillTasks(job.getTeam(), job.getJobTasks())) {
+                job.addError(ErrorFactory.createInstance(5, "Team " + team.getName() + " cannot fill all job tasks"));
                 return false;
            }
            
            if(!isBusinessHours) {
-                job.addError(ErrorFactory.createInstance(5, "Job time must be between 8am and 5pm"));
+                job.addError(ErrorFactory.createInstance(5, "Job time must be Mon-Fri between 8am and 5pm"));
                 return false;
            }
        } else if (!isBusinessHours) {
@@ -91,6 +93,10 @@ public class JobService implements IJobService {
         return job;
     }
     
+    @Override
+    public List<IJob> getJobsForToday() {
+        return repo.retrieveJobsForToday();
+    }
     
     
     //Business rules validations and calculations
@@ -206,12 +212,28 @@ public class JobService implements IJobService {
         return true;
     }
     
-    private boolean canTeamFillTasks() {
+    /**
+     * Check if team can fill job tasks
+     * @param team The team to check
+     * @param jtasks A List of job tasks to fill
+     * @return true is team can fill all tasks, else otherwise
+     */
+    private boolean canTeamFillTasks(ITeam team, List<IJobTask> jtasks) {
         
-        boolean can = true;
+        for(IJobTask jt:jtasks) {
+            boolean canFill = false;
+            for(IEmployee e:team.getMembers()) {
+                if(e.containsTask(jt.getTask())) {
+                    canFill = true;
+                    break;
+                }
+            }
+            if (!canFill) {
+                return false;
+            }
+        }
         
-        
-        return can;
+        return true;
     }
     
     /**
@@ -223,8 +245,7 @@ public class JobService implements IJobService {
      */
     private boolean isTeamAvailable(int teamId, Date start, Date end) {
         
-        
-        return true;
+        return !repo.areJobsWithDatesExist(teamId, start, end);
     }
     
     

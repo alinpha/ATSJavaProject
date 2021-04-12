@@ -133,8 +133,8 @@ public class Employee extends Base implements IEmployee {
         return tasks;
     }
     
-    public void addToTasks(ITask task) {
-        this.tasks.add(task);
+    public void setTasks(List<ITask> tasks) {
+        this.tasks = tasks;
     }
     
     public boolean containsTask(ITask task) {

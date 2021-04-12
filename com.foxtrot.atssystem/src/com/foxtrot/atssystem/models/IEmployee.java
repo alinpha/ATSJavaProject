@@ -52,4 +52,6 @@ public interface IEmployee extends IBase {
     List<ITask> getTasks();
     
     boolean containsTask(ITask task);
+    
+    void setTasks(List<ITask> tasks);
 }

@@ -66,11 +66,13 @@
                                 <td>
                                     <div>
                                         Date<br/>
-                                        <input class="form-control" type="date" name="jobStartDate" value="${ job.start }" />
+                                        <div class="small text-muted">Format: yyyy-mm-dd</div>
+                                        <input class="form-control" type="text" name="jobStartDate" value="${ job.start }" />
                                     </div>
                                     <div>
                                         Time<br/>
-                                        <input class="form-control" type="time" name="jobStartTime" value="${ job.start }" />
+                                        <div class="small text-muted">Format: HH:MMAA</div>
+                                        <input class="form-control" type="text" name="jobStartTime" value="${ job.start }" />
                                     </div>
                                 </td>
                             </tr>

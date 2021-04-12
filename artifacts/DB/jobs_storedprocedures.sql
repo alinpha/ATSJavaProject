@@ -1,6 +1,40 @@
 USE ats2021foxtrot;
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS select_today_jobs;
+// DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE select_today_jobs(
+)
+BEGIN
+
+	select * from jobs where date(start) = curdate();
+
+END//
+DELIMITER ;
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS select_jobs_for_dates;
+// DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE select_jobs_for_dates(
+IN team_id_param int,
+IN start_param datetime,
+IN end_param datetime
+)
+BEGIN
+
+	select * from jobs 
+		where ((start >= start_param and start <= end_param)
+			or (end >= start_param and end <= end_param))
+			and (teamId = team_id_param);
+
+END//
+DELIMITER ;
+
+DELIMITER //
 DROP PROCEDURE IF EXISTS insertjob;
 // DELIMITER;
 

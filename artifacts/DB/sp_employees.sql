@@ -21,14 +21,14 @@ DROP PROCEDURE IF EXISTS selectemployees_sin;
 
 DELIMITER //
 CREATE PROCEDURE selectemployees_sin (
-IN sin_param varchar(9)
+IN sin_param varchar(11)
 )
 BEGIN
 	SELECT * FROM employees where sin like sin_param
     ORDER BY createdAt;
 END//
 DELIMITER ;
-
+call selectemployees_sin('%111111111%')
 DELIMITER //
 DROP PROCEDURE IF EXISTS selectemployees_lastname;
 // DELIMITER;

@@ -8,9 +8,12 @@ package com.foxtrot.ats.controllers;
 import com.foxtrot.ats.models.ErrorViewModel;
 import com.foxtrot.atssystem.business.EmployeeServiceFactory;
 import com.foxtrot.atssystem.business.IJobService;
+import com.foxtrot.atssystem.business.ITeamService;
 import com.foxtrot.atssystem.business.JobServiceFactory;
 import com.foxtrot.atssystem.business.TaskServiceFactory;
 import com.foxtrot.atssystem.business.TeamServiceFactory;
+import com.foxtrot.atssystem.models.ErrorFactory;
+import com.foxtrot.atssystem.models.IEmployee;
 import com.foxtrot.atssystem.models.IJob;
 import com.foxtrot.atssystem.models.ITask;
 import com.foxtrot.atssystem.models.ITeam;
@@ -69,8 +72,12 @@ public class JobController extends CommonController {
             
             super.setView(request, JOBS_MAINT_VIEW);
         } else {
-            //Set attribute as list of the employees
-            //request.setAttribute("employees", service.getJobs());
+            List<IJob> jobs = service.getJobsForToday();
+            ITeamService s = TeamServiceFactory.createInstance();
+            for(IJob job:jobs) {
+                job.setTeam(s.getTeam(job.getTeam().getId()));
+            }
+            request.setAttribute("jobs", jobs);
             super.setView(request, JOBS_VIEW);
         }
         //request.setAttribute("boom", "lol");
@@ -105,11 +112,13 @@ public class JobController extends CommonController {
                 }
             }
             
-            int teamId = getInteger("selectTeam");
+            int teamId = getInteger(request.getParameter("selectTeam"));
             
             ITeam team = TeamServiceFactory.createInstance().getTeam(teamId);
             team.setMembers(EmployeeServiceFactory.createInstance().getEmployeesInTeam(teamId));
-            
+            for (IEmployee emp : team.getMembers()) {
+                emp.setTasks(TaskServiceFactory.createInstance().getTasksForEmployee(emp.getId()));
+            }
             job.setTeam(team);
             
             job.setIsOnSite(request.getParameter("boom") != null);
@@ -118,14 +127,21 @@ public class JobController extends CommonController {
             if (sDate != null && !sDate.equals("")) {
                 String sTime = request.getParameter("jobStartTime");
                 if (!(sTime == null || sTime.equals(""))) {
-                    LocalDate ld = LocalDate.parse(sDate);
+                    
+                    try {
+                        LocalDate ld = LocalDate.parse(sDate);
             
-                    DateTimeFormatter f = DateTimeFormatter.ofPattern("hh:mma");
+                        DateTimeFormatter f = DateTimeFormatter.ofPattern("hh:mma");
 
-                    LocalTime lt = LocalTime.parse(sTime, f);
-                    Calendar c = Calendar.getInstance();
-                    c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth(), lt.getHour(), lt.getMinute());
-                    job.setStart(c.getTime());
+                        LocalTime lt = LocalTime.parse(sTime, f);
+                        Calendar c = Calendar.getInstance();
+                        c.set(ld.getYear(), ld.getMonthValue()-1, ld.getDayOfMonth(), lt.getHour(), lt.getMinute(), 0);
+                        job.setStart(c.getTime());
+                    } catch(Exception e) {
+                        job.setStart(null);
+                        job.addError(ErrorFactory.createInstance(10, "Wrong format for start date or time."));
+                    }
+                    
                 } else {
                     job.setStart(null);
                 }
@@ -138,7 +154,7 @@ public class JobController extends CommonController {
                 case "create":
                     job = service.createJob(job);
                     request.setAttribute("job", job);
-                    if(!service.isValid(job)) {
+                    if(job.getId() == 0) {
                         request.setAttribute("errors", job.getErrors());
                         request.setAttribute("tasks", TaskServiceFactory.createInstance().getTasks());
                         request.setAttribute("teams", TeamServiceFactory.createInstance().getTeams());
