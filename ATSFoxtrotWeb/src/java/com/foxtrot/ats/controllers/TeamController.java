@@ -118,7 +118,18 @@ public class TeamController extends CommonController {
                     }
                     break;
                 case "save":
+                    team.setId(id);
+                    if(service.saveTeam(team) == 0) {
+                        team.addError(ErrorFactory.createInstance(18, "Failed to save team. No rows updated"));
+                    } 
                     
+                    service.saveTeam(team);
+                    request.setAttribute("team", team);
+                    if(!service.isValid(team)) {
+                        request.setAttribute("errors", team.getErrors());
+                        super.setView(request, TEAMS_MAINT_VIEW);
+                    }
+
                     break;
                 case "delete":
                    team.setId(id);

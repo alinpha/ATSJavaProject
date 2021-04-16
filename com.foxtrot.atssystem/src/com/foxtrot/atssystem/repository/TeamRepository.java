@@ -29,6 +29,8 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
     private final String SPROC_INSERT_TEAM = "CALL insertteam(?,?,?);";
     private final String SPROC_INSERT_TEAM_MEMBER = "CALL insert_team_member(?,?);";
     private final String SPROC_DELETE_TEAM = "CALL deleteteam(?);";
+    private final String SPROC_UPDATE_TEAM = "CALL updateteam(?,?,?);";
+    private final String SPROC_UPDATE_TEAM_MEMBER = "CALL updateteammember(?,?);";
     
     private final String SPROC_SELECT_EMPLOYEE_TEAMS = "CALL select_employee_teams(?);";
     
@@ -69,7 +71,35 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
 
     @Override
     public int updateTeam(ITeam team) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rowsAffected = 0;
+        
+        List<Object> returnValue;
+        List<IParameter> params = ParameterFactory.createListInstance();
+       
+        //add parameter in order they apear in stored proc
+       params.add(ParameterFactory.creteInstance(team.getId()));
+       params.add(ParameterFactory.creteInstance(team.getName()));
+       params.add(ParameterFactory.creteInstance(team.isOnCall()));
+       params.add(ParameterFactory.creteInstance(team.getMembers()));
+        
+       returnValue = dataAccess.executeNonQuery(SPROC_UPDATE_TEAM, params);
+       
+       try {
+           if(returnValue != null) {
+               rowsAffected = Integer.parseInt(returnValue.get(0).toString());
+               
+              for (IEmployee emp:team.getMembers()) {
+                  params = ParameterFactory.createListInstance();
+                  params.add(ParameterFactory.creteInstance(emp.getId()));
+                  params.add(ParameterFactory.creteInstance(team.getId()));
+                  dataAccess.executeNonQuery(SPROC_UPDATE_TEAM_MEMBER, params);
+              }
+           }
+       } catch(Exception e) {
+           System.out.println(e.getMessage());
+       }
+        
+        return rowsAffected;
     }
 
     @Override
