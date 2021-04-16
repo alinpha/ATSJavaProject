@@ -90,8 +90,19 @@ public class TaskController extends CommonController {
                     }
                     break;
                 case "save":
+                    tsk.setId(id);
+                    if(service.saveTask(tsk) == 0) {
+                        tsk.addError(ErrorFactory.createInstance(14, "Failed to save task. No rows updated"));
+                    } 
                     
+                    service.saveTask(tsk);
+                    request.setAttribute("task", tsk);
+                    if(!service.isValid(tsk)) {
+                        request.setAttribute("errors", tsk.getErrors());
+                        super.setView(request, TASKS_MAINT_VIEW);
+                    }
                     break;
+
                 case "delete":
                    tsk.setId(id);
                    

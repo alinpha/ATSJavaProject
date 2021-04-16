@@ -5,6 +5,7 @@
  */
 package com.foxtrot.atssystem.business;
 
+import com.foxtrot.atssystem.models.ErrorFactory;
 import com.foxtrot.atssystem.models.ITask;
 import com.foxtrot.atssystem.repository.ITaskRepository;
 import com.foxtrot.atssystem.repository.TaskRepoFactory;
@@ -38,7 +39,12 @@ public class TaskService implements ITaskService {
 
     @Override
     public int saveTask(ITask task) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (isValid(task) && task.getDuration() > 30) {
+            return repo.updateTask(task);
+        } else {
+            //task.addError(ErrorFactory.createInstance(17, "Task is not valid"));
+            return 0;
+        }
     }
 
     @Override

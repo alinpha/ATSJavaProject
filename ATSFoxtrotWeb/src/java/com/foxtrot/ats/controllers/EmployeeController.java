@@ -144,7 +144,6 @@ public class EmployeeController extends CommonController {
                         request.setAttribute("errors", employee.getErrors());
                         super.setView(request, EMPS_MAINT_VIEW);
                     }
-                    
                     break;
 
                 case "delete":
