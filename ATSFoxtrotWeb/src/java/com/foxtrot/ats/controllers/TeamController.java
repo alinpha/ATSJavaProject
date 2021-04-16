@@ -10,6 +10,7 @@ import com.foxtrot.atssystem.business.EmployeeServiceFactory;
 import com.foxtrot.atssystem.business.ITeamService;
 import com.foxtrot.atssystem.business.TeamServiceFactory;
 import com.foxtrot.atssystem.models.EmployeeFactory;
+import com.foxtrot.atssystem.models.ErrorFactory;
 import com.foxtrot.atssystem.models.IEmployee;
 import com.foxtrot.atssystem.models.ITeam;
 import com.foxtrot.atssystem.models.Team;
@@ -48,12 +49,13 @@ public class TeamController extends CommonController {
 
             //Set attribute as team or error
             if(team != null) {
-                
                 request.setAttribute("team", team);
+                request.setAttribute("emps", EmployeeServiceFactory.createInstance().getEmployeesInTeam(id));
             } else {
                 team = TeamFactory.createInstance();
                 team.setId(0);
                 request.setAttribute("team", team);
+               
                 request.setAttribute("error", new ErrorViewModel(String.format("Team id: %s not found", id)));
             }
             
@@ -63,6 +65,7 @@ public class TeamController extends CommonController {
         } else {
             //Set attribute as list of the teams
             
+            //List teams = service.getTeamMembers();
             request.setAttribute("teams", service.getTeams());
             super.setView(request, TEAMS_VIEW);
         }
@@ -118,6 +121,18 @@ public class TeamController extends CommonController {
                     
                     break;
                 case "delete":
+                   team.setId(id);
+
+                   if(service.deleteTeam(id) == 0) {
+                       team.addError(ErrorFactory.createInstance(10, "Could not delete team. Zero rows affected"));
+                       super.setView(request, TEAMS_MAINT_VIEW);
+                   } else {
+                       request.setAttribute("deleted", true);
+                       team.setIsDeleted(true);
+                       team.setDeletedAt(new Date());
+                   }
+                   
+                   request.setAttribute("team", team);
                    
                     break;
             }

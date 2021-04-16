@@ -5,6 +5,7 @@
  */
 package com.foxtrot.atssystem.business;
 
+import com.foxtrot.atssystem.models.ErrorFactory;
 import com.foxtrot.atssystem.models.IEmployee;
 import com.foxtrot.atssystem.models.ITask;
 import com.foxtrot.atssystem.repository.EmployeeRepoFactory;
@@ -40,7 +41,13 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public int saveEmployee(IEmployee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        if (isValid(employee)) {
+            return repo.updateEmployee(employee);
+        } else {
+            employee.addError(ErrorFactory.createInstance(12, "Employee is not valid"));
+            return 0;
+        }
     }
 
     @Override

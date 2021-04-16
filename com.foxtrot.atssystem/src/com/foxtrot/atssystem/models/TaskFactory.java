@@ -17,7 +17,9 @@ public abstract class TaskFactory {
         return new Task();
     }
     
-    public static ITask createInstance(String name, String desc, int duration, Date createdAt, Date updatedAt) {
+    public static ITask createInstance(String name, String desc, int duration, Date createdAt, Date updatedAt
+            //, Date deletedAt, boolean isDeleted
+            ) {
         return new Task();
     }
     

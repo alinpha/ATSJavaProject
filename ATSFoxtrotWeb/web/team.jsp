@@ -36,9 +36,7 @@
                             </tr>
                             
                             <c:set var="i" value="${ 1 }" />
-                            
                             <c:forEach items="${team.getMembers()}" var="member">
-                            
                                 <tr>                    
                                     <td>Member ${i}</td>
                                     <td>
@@ -51,7 +49,6 @@
                                     </td>
                                 </tr>
                                 <c:set var="i" value="${i+1}" />
-                            
                             </c:forEach>
                             
                             <c:if test="${team != null && team.id != 0 }">

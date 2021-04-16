@@ -70,7 +70,6 @@ public class Team extends Base implements ITeam {
     public void setIsOnCall(boolean isOnCall) {
         this.isOnCall = isOnCall;
     }
-
     public boolean isDeleted() {
         return isDeleted;
     }
@@ -99,8 +98,8 @@ public class Team extends Base implements ITeam {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
-        this.deletedAt = deletedAt;
+    public void setDeletedAt(Date deleteddAt) {
+        this.deletedAt = deleteddAt;
     }
     
     public List<IEmployee> getMembers() {

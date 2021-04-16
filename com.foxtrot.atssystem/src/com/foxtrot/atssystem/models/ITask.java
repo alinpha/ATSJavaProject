@@ -24,4 +24,8 @@ public interface ITask extends IBase {
     void setCreatedAt(Date createdAt);
     Date getUpdatedAt();
     void setUpdatedAt(Date updatedAt);
+    //Date getDeletedAt();
+    //void setDeletedAt(Date date);
+    //boolean isDeleted();
+    //void setIsDeleted(boolean del);
 }

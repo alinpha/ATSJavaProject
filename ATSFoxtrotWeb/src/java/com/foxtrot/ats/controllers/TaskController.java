@@ -8,6 +8,7 @@ package com.foxtrot.ats.controllers;
 import com.foxtrot.ats.models.ErrorViewModel;
 import com.foxtrot.atssystem.business.ITaskService;
 import com.foxtrot.atssystem.business.TaskServiceFactory;
+import com.foxtrot.atssystem.models.ErrorFactory;
 import com.foxtrot.atssystem.models.ITask;
 import com.foxtrot.atssystem.models.TaskFactory;
 import java.io.IOException;
@@ -92,6 +93,19 @@ public class TaskController extends CommonController {
                     
                     break;
                 case "delete":
+                   tsk.setId(id);
+                   
+                   if(service.deleteTask(id) == 0) {
+                       tsk.addError(ErrorFactory.createInstance(10, "Could not delete task. Zero rows affected"));
+                       super.setView(request, TASKS_MAINT_VIEW);
+                   } 
+//                   else {
+//                       request.setAttribute("deleted", true);
+//                       tsk.setIsDeleted(true);
+//                       tsk.setDeletedAt(new Date());
+//                   }
+                   
+                   request.setAttribute("task", tsk);
                    
                     break;
             }

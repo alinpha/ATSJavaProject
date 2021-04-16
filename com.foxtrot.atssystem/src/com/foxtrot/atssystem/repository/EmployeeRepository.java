@@ -28,6 +28,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
     private final String SPROC_SELECT_EMPLOYEES_WITH_LAST_NAME = "CALL selectemployees_lastname(?);";
     private final String SPROC_SELECT_EMPLOYEE = "CALL selectemployees(?);";
     private final String SPROC_INSERT_EMPLOYEE = "CALL insertemployee(?,?,?,?,?);";
+    private final String SPROC_UPDATE_EMPLOYEE = "CALL updateemployee(?,?,?,?,?);";
     private final String SPROC_DELETE_EMPLOYEE = "CALL deleteemployee(?);";
     private final String SPROC_ADD_SKILL = "CALL add_employee_skill(?,?,?);";
     private final String SPROC_SELECT_EMPLOYEES_IN_TEAM = "CALL select_employees_in_team(?);";
@@ -67,7 +68,29 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
 
     @Override
     public int updateEmployee(IEmployee employee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rowsAffected = 0;
+        
+        List<Object> returnValue;
+        List<IParameter> params = ParameterFactory.createListInstance();
+       
+        //add parameter in order they apear in stored proc
+       params.add(ParameterFactory.creteInstance(employee.getId()));
+       params.add(ParameterFactory.creteInstance(employee.getFirstName()));
+       params.add(ParameterFactory.creteInstance(employee.getLastName()));
+       params.add(ParameterFactory.creteInstance(employee.getSin()));
+       params.add(ParameterFactory.creteInstance(employee.getHourlyRate()));
+        
+       returnValue = dataAccess.executeNonQuery(SPROC_UPDATE_EMPLOYEE, params);
+       
+       try {
+           if(returnValue != null) {
+               rowsAffected = Integer.parseInt(returnValue.get(0).toString());
+           }
+       } catch(Exception e) {
+           System.out.println(e.getMessage());
+       }
+        
+        return rowsAffected;
     }
 
     @Override
@@ -197,9 +220,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
      * @throws SQLException 
      */
     private List<IEmployee> toListOfEmployees(CachedRowSet rs) throws SQLException {
-        
-        
-        
+
         List<IEmployee> list = EmployeeFactory.createListInstance();
         IEmployee emp;
         while(rs.next()) {
@@ -213,9 +234,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
             emp.setCreatedAt(rs.getDate("createdAt"));
             emp.setUpdatedAt(rs.getDate("updatedAt"));
             emp.setDeletedAt(rs.getDate("deletedAt"));
-            
-            
-            
+
             list.add(emp);
         }
         

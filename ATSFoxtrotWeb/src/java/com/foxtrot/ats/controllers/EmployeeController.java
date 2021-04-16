@@ -134,13 +134,22 @@ public class EmployeeController extends CommonController {
                     } 
                     break;
                 case "save":
+                    employee.setId(id);
+                    if(service.saveEmployee(employee) == 0) {
+                        employee.addError(ErrorFactory.createInstance(12, "Failed to save employee. No rows updated"));
+                    } 
+                    service.saveEmployee(employee);
+                    request.setAttribute("employee", employee);
+                    if(!service.isValid(employee)) {
+                        request.setAttribute("errors", employee.getErrors());
+                        super.setView(request, EMPS_MAINT_VIEW);
+                    }
                     
                     break;
+
                 case "delete":
                     employee.setId(id);
-                   
-                   
-                   
+
                    if(service.deleteEmployee(id) == 0) {
                        employee.addError(ErrorFactory.createInstance(10, "Could not delete employee. Zero rows affected"));
                        super.setView(request, EMPS_MAINT_VIEW);

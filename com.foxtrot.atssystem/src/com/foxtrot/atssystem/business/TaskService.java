@@ -43,7 +43,7 @@ public class TaskService implements ITaskService {
 
     @Override
     public int deleteTask(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return repo.deleteTask(id);
     }
 
     @Override

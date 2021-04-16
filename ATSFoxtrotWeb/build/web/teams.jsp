@@ -16,15 +16,11 @@
                     <c:when test="${ teams.size() > 0}">
                         <table class="table table-striped">
                             <tr class="bg-dark text-light">
-                                
-                                <th>
-                                    Name
-                                </th>
+                                <th>Name</th>
                                 <th></th>
                             </tr>
                             <c:forEach items="${teams}"  var="team">
-                                <tr>
-                                    
+                                <tr> 
                                     <td>${ team.name }</td>
                                     <td><a href="team/${ team.id}">Show</a></td>  
                                 </tr>

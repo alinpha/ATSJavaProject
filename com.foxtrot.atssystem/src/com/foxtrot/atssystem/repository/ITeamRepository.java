@@ -18,5 +18,6 @@ public interface ITeamRepository {
     int deleteTeam(int id);
     List<ITeam> retrieveTeams();
     List<ITeam> retrieveTeamsForEmployee(int id);
+    List<ITeam> retrieveTeamMembers();
     ITeam retrieveTeam(int id);  
 }

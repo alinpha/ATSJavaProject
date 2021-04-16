@@ -44,7 +44,7 @@ public class TeamService implements ITeamService {
 
     @Override
     public int deleteTeam(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return repo.deleteTeam(id);
     }
 
     @Override
@@ -58,6 +58,11 @@ public class TeamService implements ITeamService {
     @Override
     public List<ITeam> getTeams() {
         return repo.retrieveTeams();
+    }
+    
+    @Override
+    public List getTeamMembers() {
+        return repo.retrieveTeamMembers();
     }
     
     @Override

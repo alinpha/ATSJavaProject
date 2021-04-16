@@ -18,16 +18,21 @@ public class Task extends Base implements ITask {
     private int duration;
     private Date createdAt;
     private Date updatedAt;
-    
+    //private Date deletedAt;
+    //private boolean isDeleted;
     
     public Task() {}
     
-    public Task(String name, String desc, int duration, Date createdAt, Date updatedAt) {
+    public Task(String name, String desc, int duration, Date createdAt, Date updatedAt
+            //, boolean isDeleted, Date deletedAt
+    ) {
         setName(name);
         setDescription(desc);
         setDuration(duration);
+        //setIsDeleted(isDeleted);
         setCreatedAt(createdAt);
         setUpdatedAt(updatedAt);
+        //setDeletedAt(deletedAt);
     }
     
 
@@ -92,8 +97,21 @@ public class Task extends Base implements ITask {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
-    }
+    }    
     
-    
-    
+//    public boolean isDeleted() {
+//        return isDeleted;
+//    }
+//
+//    public void setIsDeleted(boolean isDeleted) {
+//        this.isDeleted = isDeleted;
+//    }
+//    
+//    public Date getDeletedAt() {
+//        return deletedAt;
+//    }
+//
+//    public void setDeletedAt(Date deleteddAt) {
+//        this.deletedAt = deleteddAt;
+//    }
 }

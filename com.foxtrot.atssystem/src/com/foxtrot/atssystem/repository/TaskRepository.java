@@ -25,6 +25,7 @@ public class TaskRepository extends BaseRepository implements ITaskRepository {
     private final String SPROC_SELECT_TASKS = "CALL selecttasks(null);";
     private final String SPROC_SELECT_TASK = "CALL selecttasks(?);";
     private final String SPROC_INSERT_TASK = "CALL inserttask(?,?,?,?);";
+    private final String SPROC_DELETE_TASK = "CALL deletetask(?);";
     
     private final String SPROC_SELECT_EMPLOYEE_TASKS = "CALL select_employee_tasks(?);";
     
@@ -62,7 +63,24 @@ public class TaskRepository extends BaseRepository implements ITaskRepository {
 
     @Override
     public int deleteTask(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rowsAffected = 0;
+        
+        List<Object> returnValue;
+        List<IParameter> params = ParameterFactory.createListInstance();
+       
+        //add parameter in order they apear in stored proc
+       params.add(ParameterFactory.creteInstance(id));
+       returnValue = dataAccess.executeNonQuery(SPROC_DELETE_TASK, params);
+       
+       try {
+           if(returnValue != null) {
+               rowsAffected = Integer.parseInt(returnValue.get(0).toString());
+           }
+       } catch(Exception e) {
+           System.out.println(e.getMessage());
+       }
+        
+        return rowsAffected;
     }
 
     @Override
