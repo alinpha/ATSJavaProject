@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Izes Souto
+ * @author Izes Souto  
  */
 public interface ITeamService {
     boolean isValid(ITeam team);
@@ -21,5 +21,5 @@ public interface ITeamService {
     ITeam getTeam(int id);
     List<ITeam> getTeams();
     List<ITeam> getTeamsForEmployee(int id);
-    List<ITeam> getTeamMembers();
+    ITeam getTeamMembers(int id);
 }

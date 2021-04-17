@@ -99,6 +99,7 @@ public class JobController extends CommonController {
             //Declare job variable
             IJob job = JobFactory.createInstance();
             job.setDescription(super.getValue(request, "jobDesc"));
+            job.setDescription(super.getValue(request, "jobDesc"));
             job.setClientName(getValue(request, "clientName"));
             //String[] taskIds = request.getParameterValues("jobtasks");
             job.setJobTasks(JobTaskFactory.createListInstance());
@@ -121,7 +122,7 @@ public class JobController extends CommonController {
             }
             job.setTeam(team);
             
-            job.setIsOnSite(request.getParameter("boom") != null);
+            job.setIsOnSite(request.getParameter("isOnSite") != null);
             
             String sDate = request.getParameter("jobStartDate");
             if (sDate != null && !sDate.equals("")) {

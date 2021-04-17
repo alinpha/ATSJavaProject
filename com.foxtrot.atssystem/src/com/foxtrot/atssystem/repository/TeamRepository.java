@@ -24,7 +24,7 @@ import javax.sql.rowset.CachedRowSet;
  */
 public class TeamRepository extends BaseRepository implements ITeamRepository {
     private final String SPROC_SELECT_TEAMS = "CALL selectteams(null);";
-    private final String SPROC_SELECT_TEAMMEMBERS = "CALL select_teammembers(null);";
+    private final String SPROC_SELECT_TEAMMEMBERS = "CALL select_teammembers(?);";
     private final String SPROC_SELECT_TEAM = "CALL selectteams(?);";
     private final String SPROC_INSERT_TEAM = "CALL insertteam(?,?,?);";
     private final String SPROC_INSERT_TEAM_MEMBER = "CALL insert_team_member(?,?);";
@@ -139,15 +139,17 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
     }
     
     @Override
-    public List retrieveTeamMembers() {
-        List list = TeamFactory.createListInstance();
+    public ITeam retrieveTeamMembers(int id) {
+        ITeam teamRetrieved = TeamFactory.createInstance();
         try {
-            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_TEAMMEMBERS, null);
-            list = toListOfTeamsMembers(rs);
+            List<IParameter> params = ParameterFactory.createListInstance();
+            params.add(ParameterFactory.creteInstance(id));
+            CachedRowSet rs = dataAccess.executeFill(SPROC_SELECT_TEAMMEMBERS, params);
+            teamRetrieved = toListOfTeamsMembers(rs);
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
-        return list;
+        return teamRetrieved;
     }
     
     @Override
@@ -208,40 +210,30 @@ public class TeamRepository extends BaseRepository implements ITeamRepository {
     }
     
     //Page Teams Members First and Last Name -  Store Procedure: 
-     private List<Object> toListOfTeamsMembers(CachedRowSet rs) throws SQLException {
-        List<ITeam> list = TeamFactory.createListInstance();
+     private ITeam toListOfTeamsMembers(CachedRowSet rs) throws SQLException {
+        ITeam team = TeamFactory.createInstance();
         List<IEmployee> members = EmployeeFactory.createListInstance();
-        List<Object>result = new ArrayList<>();
-        ITeam team;
+
         IEmployee employee;
         int idTeam = 0;
         while(rs.next()) {
             
-            team = TeamFactory.createInstance();
+            if(rs.isFirst()){
             team.setId(super.getInt("id", rs));   
             team.setName(rs.getString("name"));
             team.setIsOnCall(rs.getBoolean("isOnCall"));
-            
+            }
             employee = EmployeeFactory.createInstance();
             employee.setId(super.getInt("employeeid",rs));
             employee.setFirstName(rs.getString("firstName"));
             employee.setLastName(rs.getString("lastName"));
-            
-            
-            if(idTeam != team.getId()){
-                members = EmployeeFactory.createListInstance();
-                list.add(team);
-                team.setMembers(members);
-            }
+
             members.add(employee);
-            
-            idTeam = team.getId();
+
         }
-        result.add(members);
-        result.add(list);
-        return result;
+        team.setMembers(members);
+        
+        return team;
     }
-    
-    
-    
+
 }

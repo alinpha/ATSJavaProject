@@ -13,7 +13,9 @@ import com.foxtrot.atssystem.models.ITask;
 import com.foxtrot.atssystem.models.ITeam;
 import com.foxtrot.atssystem.models.JobTask;
 import com.foxtrot.atssystem.repository.IJobRepository;
+import com.foxtrot.atssystem.repository.ITeamRepository;
 import com.foxtrot.atssystem.repository.JobRepoFactory;
+import com.foxtrot.atssystem.repository.TeamRepoFactory;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -125,10 +127,11 @@ public class JobService implements IJobService {
      */
     private int getJobTotalTime(IJob job) {
         //Calendar c = Calendar.getInstance();
-        //c.setTime(start);
-        
+        //c.setTime(start);isValid
+        ITeamRepository teamrepo = TeamRepoFactory.createInstance();
+        ITeam team  = teamrepo.retrieveTeamMembers(job.getTeam().getId());
         List<IJobTask> jtasks = job.getJobTasks();
-        ITeam team = job.getTeam();
+        //ITeam team = job.getTeam();
         
         List<Integer> durations = new ArrayList();
         
@@ -219,8 +222,10 @@ public class JobService implements IJobService {
      * @return true is team can fill all tasks, else otherwise
      */
     private boolean canTeamFillTasks(ITeam team, List<IJobTask> jtasks) {
+        ITeamRepository teamrepo = TeamRepoFactory.createInstance();
         
         for(IJobTask jt:jtasks) {
+        team  = teamrepo.retrieveTeamMembers(team.getId());
             boolean canFill = false;
             for(IEmployee e:team.getMembers()) {
                 if(e.containsTask(jt.getTask())) {

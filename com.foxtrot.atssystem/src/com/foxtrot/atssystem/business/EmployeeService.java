@@ -94,7 +94,7 @@ public class EmployeeService implements IEmployeeService {
         //check there are no future jobs require this skill
         //todo after job dev completed
         
-        return repo.insertEmployeeSkill(eId, sId);
+        return repo.deleteEmployeeSkill(eId, sId);
     }
     
     @Override

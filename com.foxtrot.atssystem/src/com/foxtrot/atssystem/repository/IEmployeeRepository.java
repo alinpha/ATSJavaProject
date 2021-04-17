@@ -19,6 +19,7 @@ public interface IEmployeeRepository {
     List<IEmployee> retrieveEmployees();
     IEmployee retrieveEmployee(int id);   
     int insertEmployeeSkill(int empId, int taskId);
+    int deleteEmployeeSkill(int empId, int taskId);
     List<IEmployee> retrieveEmployeesBySin(String sin);
     List<IEmployee> retrieveEmployeesByLastName(String lastName);
     List<IEmployee> retrieveEmployeesInTeam(int teamId);

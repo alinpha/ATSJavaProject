@@ -31,6 +31,7 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
     private final String SPROC_UPDATE_EMPLOYEE = "CALL updateemployee(?,?,?,?,?);";
     private final String SPROC_DELETE_EMPLOYEE = "CALL deleteemployee(?);";
     private final String SPROC_ADD_SKILL = "CALL add_employee_skill(?,?,?);";
+    private final String SPROC_REMOVE_SKILL = "CALL delete_skill(?,?);";
     private final String SPROC_SELECT_EMPLOYEES_IN_TEAM = "CALL select_employees_in_team(?);";
     
     
@@ -211,6 +212,30 @@ public class EmployeeRepository extends BaseRepository implements IEmployeeRepos
             System.out.println(e.getMessage());
         }
         return id;
+    }
+    
+    @Override
+    public int deleteEmployeeSkill(int empId, int taskId) {
+        int rowsAffected = 0;
+        
+        List<Object> returnValue;
+        List<IParameter> params = ParameterFactory.createListInstance();
+       
+        //add parameter in order they apear in stored proc
+        params.add(ParameterFactory.creteInstance(empId));
+        params.add(ParameterFactory.creteInstance(taskId));
+        
+       returnValue = dataAccess.executeNonQuery(SPROC_REMOVE_SKILL, params);
+       
+       try {
+           if(returnValue != null) {
+               rowsAffected = Integer.parseInt(returnValue.get(0).toString());
+           }
+       } catch(Exception e) {
+           System.out.println(e.getMessage());
+       }
+        
+        return rowsAffected;
     }
     
     /**

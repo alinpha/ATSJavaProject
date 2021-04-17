@@ -87,7 +87,7 @@ public class SkillsController extends CommonController {
                 service.addEmployeeSkill(empId, taskIdAdd);
             } else if (taskIRemove > 0) {
                 
-                service.removeEmployeeSkill(empId, taskIdAdd);
+                service.removeEmployeeSkill(empId, taskIRemove);
             }
             
             

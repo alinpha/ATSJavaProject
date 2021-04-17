@@ -65,8 +65,8 @@ public class TeamService implements ITeamService {
     }
     
     @Override
-    public List getTeamMembers() {
-        return repo.retrieveTeamMembers();
+    public ITeam getTeamMembers(int id) {
+        return repo.retrieveTeamMembers(id);
     }
     
     @Override
